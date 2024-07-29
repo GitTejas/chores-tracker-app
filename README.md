@@ -4,7 +4,7 @@
 
 - Discuss the basic directory structure of a CLI.
 - Outline the first steps in building a CLI.
-
+- Editing
 ---
 
 ## Introduction

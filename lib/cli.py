@@ -26,3 +26,11 @@ def menu():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+from helpers import (
+    exit_program,
+    helper_1
+)
