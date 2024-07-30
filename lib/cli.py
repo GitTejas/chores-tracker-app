@@ -25,6 +25,36 @@ def main_page():
     print("*                📝  Press E to Exit App                           *")
     print("---------------------------------------------------------------------")
 
+def view_people(people):
+    while True:
+        list_people(people)
+        print("*********************************************************************")
+        print("*                        👪 MANAGE PEOPLE 👪                        *")
+        print("*********************************************************************")
+        print("*                Please choose from the following:                  *")
+        print("*********************************************************************")
+        print("*                  Press 1.  Add New Person                         *")
+        print("*                  Press 2.  Delete a Person                        *")
+        print("*                  Press 3.  Update a Person                        *")
+        print("*                  Press 4.  Find a Person by Name                  *")
+        print("*                  Press 5.  Back to Main Menu                      *")
+        print("---------------------------------------------------------------------")
+
+        choice = input("Enter your choice")
+        if choice == '1':
+            add_person(people)
+        elif choice == '2':
+            delete_person(people)
+        elif choice == '3':
+            update_person(people)
+        elif choice == '4':
+            find_person_by_name(people)
+        elif choice == '5':
+            break 
+        else:
+            print("Invalid choice, please try again")
+
+
 def main():
     while True:
         menu()
