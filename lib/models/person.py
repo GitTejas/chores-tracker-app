@@ -36,16 +36,16 @@ class Person:
     def create_table(cls):
         sql = """
             CREATE TABLE IF NOT EXISTS person (
-            id INTEGER PRIMARY KEY,
-            name TEXT,
-            room TEXT
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                room TEXT
             )
         """
         CURSOR.execute(sql)
         CONN.commit()
 
     @classmethod
-    def drop_table(sql):
+    def drop_table(cls):
         sql = "DROP TABLE IF EXISTS person"
         CURSOR.execute(sql)
         CONN.commit()
@@ -58,18 +58,18 @@ class Person:
             CURSOR.execute(sql, (self.name, self.room))
             CONN.commit()
             self.id = CURSOR.lastrowid
-    
+
     @classmethod
     def create(cls, name, room=None):
         person = cls(name, room)
         person.save()
         return person
-    
+
     def update(self):
         sql = "UPDATE person SET name = ?, room = ? WHERE id = ?"
         CURSOR.execute(sql, (self.name, self.room, self.id))
         CONN.commit()
-    
+
     def delete(self):
         sql = "DELETE FROM person WHERE id = ?"
         CURSOR.execute(sql, (self.id,))
@@ -80,7 +80,7 @@ class Person:
     def instance_from_db(cls, row):
         person = cls(row[1], row[2], row[0])
         return person
-    
+
     @classmethod
     def get_all(cls):
         sql = "SELECT * FROM person"
@@ -98,9 +98,9 @@ class Person:
         sql = "SELECT * FROM person WHERE name = ?"
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
-    
+
     def add_chore(self, chore):
-        chore.person_id = self.id
+        chore.person_id = self.id  # Set the person_id to the current person's id
         self.chores.append(chore)
         chore.save()
 
