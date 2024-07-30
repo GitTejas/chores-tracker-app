@@ -1,14 +1,7 @@
 # lib/helpers.py
-
-def helper_1():
-    print("Performing useful function#1.")
-
-
-def exit_program():
-    print("Goodbye!")
-    exit()
-
-
+from models.chore import Chore
+from models.person import Person
+from datetime import datetime
 
 def list_people():
     pass
@@ -39,3 +32,8 @@ def find_person_by_name():
 
 def find_chore_by_task():
     pass
+
+
+def exit_program():
+    print("Goodbye!")
+    exit()
