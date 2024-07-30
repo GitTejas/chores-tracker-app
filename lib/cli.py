@@ -1,10 +1,29 @@
-# lib/cli.py
-
+from seed import people
 from helpers import (
-    exit_program,
-    helper_1
+    list_people,
+    add_person,
+    delete_person,
+    update_person,
+    list_chores,
+    add_chore,
+    delete_chore,
+    update_chore,
+    find_person_by_name,
+    find_chore_by_task
 )
 
+def main_page():
+    print("*********************************************************************")
+    print("*                         📝 CHORES TRACKER 📝                     *")
+    print("*********************************************************************")
+    print("*                     Welcome to Chores List Tracker!               *")
+    print("*********************************************************************")
+    print("*                      Please choose from the following:            *")
+    print("*********************************************************************")
+    print("*                📝  Press V to View All People                    *")
+    print("*                📝  Press M to Manage and View Chores             *")
+    print("*                📝  Press E to Exit App                           *")
+    print("---------------------------------------------------------------------")
 
 def main():
     while True:
@@ -26,11 +45,3 @@ def menu():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-from helpers import (
-    exit_program,
-    helper_1
-)
