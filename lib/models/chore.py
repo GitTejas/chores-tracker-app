@@ -27,6 +27,13 @@ class Chore:
         @property
         def due_date(self):
             return self._due_date
+
+        @due_date.setter
+        def due_date(self, due_date):
+            if isinstance(due_date, int):
+                self._due_date = due_date
+            else:
+                raise ValueError("Due date must be an integer")
         
         # @due_date.setter
         # def due_date(self, due_date):
@@ -35,13 +42,6 @@ class Chore:
         #         self._due_date = due_date
         #     except ValueError:
         #         raise ValueError("Due date must be in YYYY/MM/DD format")
-            
-        @due_date.setter
-        def due_date(self, due_date):
-            if isinstance(due_date, int):
-                self._due_date = due_date
-            else:
-                raise ValueError("Due date must be an integer")
 
         @property
         def status(self):
@@ -75,6 +75,85 @@ class Chore:
                 self._person_id = id
             else:
                 raise ValueError("Person ID must be an integer")
-            
-
         
+        @classmethod
+        def create_table(cls):
+            sql = """
+                CREATE TABLE IF NOT EXISTS chore (
+                id INTEGER PRIMARY KEY,
+                task TEXT,
+                due_date INTEGER,
+                status TEXT,
+                priority TEXT,
+                person_id INTEGER,
+                FOREIGN KEY (person_id) REFERENCES person(id)
+                )
+            """
+            CURSOR.execute(sql)
+            CONN.commit()
+
+        @classmethod
+        def drop_table(cls):
+            sql = "DROP TABLE IF EXISTS chore"
+            CURSOR.execute(sql)
+            CONN.commit()
+        
+        def save(self):
+            if self.id:
+                self.update()
+            else:
+                sql = """
+                    INSERT INTO chore (task, due_date, status, priority, person_id)
+                    VALUES (?, ?, ?, ?, ?)
+                """
+                CURSOR.execute(sql, (self.task, self.due_date, self.status, self.priority, self.person_id))
+                CONN.commit()
+                self.id = CURSOR.lastrowid
+        
+        @classmethod
+        def create(cls, task, due_date, status, priority, person_id):
+            chore = cls(task, due_date, status, priority, person_id)
+            chore.save()
+            return chore
+        
+        def update(self):
+            sql = """
+                UPDATE chore
+                SET task = ?, due_date = ?, status = ?, priority = ?, person_id = ?
+                WHERE id = >
+            """
+            CURSOR.execute(sql, (self.task, self.due_date, self.status, self.priority, self.person_id, self.id))
+            CONN.commit()
+            self.id = None
+
+        def delete(self):
+            sql = "DELETE FROM chore WHERE id = ?"
+            CURSOR.execute(sql, (self.id,))
+            CONN.commit()
+            self.id = None
+        
+        @classmethod
+        def instance_from_db(cls, row):
+            chore = cls(row[1], row[2], row[3], row[4], row[5], row[0])
+            return chore
+        
+        @classmethod
+        def get_all(cls):
+            sql = "SELECT * FROM chore"
+            rows = CURSOR.execute(sql).fetchall()
+            return [cls.instance_from_db(row) for row in rows]
+        
+        @classmethod
+        def find_by_id(cls, id):
+            sql = "SELECT * FROM chore WHERE id = ?"
+            row = CURSOR.execute(sql, (id,)).fetchone
+            return cls.instance_from_db(row) if row else None
+        
+        @classmethod
+        def find_by_person_id(cls, person_id):
+            sql = "SELECT * FROM chore WHERE person_id = ?"
+            rows = CURSOR.execute(sql, (person_id)).fetchall()
+            return [cls.instance_from_db(row) for row in rows]
+        
+        def ___repr__(self):
+            return f"{self.task} - Due: {self.due_date} - Status: {self.status} - Priority: {self.priority}"
