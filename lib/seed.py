@@ -2,11 +2,13 @@ from models.person import Person
 from models.chore import Chore
 
 def seed_database():
+    # Initialize database tables
     Person.drop_table()
     Chore.drop_table()
     Person.create_table()
     Chore.create_table()
 
+    # Seed Data / Initialize sample data
     person1 = Person.create(name="Bella", room="Kitchen")
     person2 = Person.create(name="Keiji", room="Living Room")
     person3 = Person.create(name="Serenity", room="Garden")
