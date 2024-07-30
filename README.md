@@ -32,6 +32,7 @@ To run the Chores Tracker App. app, follow these steps:
 1. Clone the Repository:
  
 git clone [repository-url]
+
 cd chores-tracker-app
 
 2. Run the App:
