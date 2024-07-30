@@ -16,13 +16,13 @@ class Chore:
         @property
         def task(self):
             return self._task
-        
+
         @task.setter
         def task(self, task):
-            if isinstance(task, str):
+            if isinstance(task, str) and 1 <= len(task) <= 30:
                 self._task = task
             else:
-                raise ValueError("Task must be a string")
+                raise ValueError("Task must be a string with 1 to 30 characters")
             
         @property
         def due_date(self):
@@ -38,7 +38,7 @@ class Chore:
             
         # @due_date.setter
         # def due_date(self, due_date):
-        #     if isinstance(due_date, int): 
+        #     if isinstance(due_date, int):
         #         self._due_date = due_date
         #     else:
         #         raise ValueError("Due date must be an integer")
@@ -46,32 +46,32 @@ class Chore:
         @property
         def status(self):
             return self._status
-        
+
         @status.setter
         def status(self, status):
             if isinstance(status, str):
                 self._status = status
             else:
                 raise ValueError("Status must be a string")
-            
+
         @property
         def priority(self):
             return self._priority
-        
+
         @priority.setter
         def priority(self, priority):
             if isinstance(priority, str):
                 self._priority = priority
             else:
                 raise ValueError("Priority must be a string")
-            
+
         @property
         def person_id(self):
             return self._person_id
-        
+
         @person_id.setter
-        def person_id(self, person_id):
-            if isinstance(person_id, int):
-                self._person_id = person_id
+        def person_id(self, id):
+            if isinstance(id, int):
+                self._person_id = id
             else:
                 raise ValueError("Person ID must be an integer")
