@@ -148,13 +148,24 @@ def update_chore(people):
         print("Invalid input. Please enter a number.")
 
 
-def find_person_by_name():
-    pass
+def find_person_by_name(people):
+    name = input("Enter the name of the person to find: ")
+    found_people = [person for person in people if person.name.lower() == name.lower()]
+    if found_people:
+        for person in found_people:
+            print(person)
+    else:
+        print(f"No person found with the name '{name}'.")
 
-def find_chore_by_task():
-    pass
-
-
-def exit_program():
-    print("Goodbye!")
-    exit()
+def find_chore_by_task(people):
+    task = input("Enter the task of the chore to find: ")
+    found_chores = []
+    for person in people:
+        for chore in person.chores:
+            if chore.task.lower() == task.lower():
+                found_chores.append((person, chore))
+    if found_chores:
+        for person, chore in found_chores:
+            print(f"Chore '{chore.task}' found for {person.name}.")
+    else:
+        print(f"No chore found with the task '{task}'.")
