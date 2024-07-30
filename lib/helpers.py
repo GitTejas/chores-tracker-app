@@ -16,8 +16,7 @@ def add_person(people):
             continue
         if len(name) <= 2 or len(name) >= 15:
             print("Name must be greater than 2 characters and less than 15 characters. Please enter a valid name.")
-            continue
-        
+            continue  
         room = input("Enter the person's room: ").strip()
         if not room:
             print("Room cannot be empty. Please enter a valid room.")
@@ -31,7 +30,6 @@ def add_person(people):
         people.append(new_person)
         print(f"Person '{name}' added.")
         break
-
 
 def delete_person(people):
     list_people(people)
