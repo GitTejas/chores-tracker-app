@@ -24,7 +24,6 @@ def add_person(people):
         if room.isdigit():  # Example: Ensure room is not just a number if that's a requirement
             print("Room cannot be all digits. Please enter a valid room.")
             continue
-        
         new_person = Person(name=name, room=room)
         new_person.save()  # Ensure the person is saved to the database
         people.append(new_person)
