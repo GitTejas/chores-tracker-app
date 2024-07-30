@@ -77,9 +77,7 @@ def add_chore(people):
         else:
             print("Invalid selection.")
     except ValueError as ve:
-        print(f"Invalid input: {ve}. Please enter a valid number.")
-
-
+        print(f"Invalid input: Please enter a valid number.")
 
 
 def delete_chore(people):
@@ -132,8 +130,6 @@ def update_chore(people):
             print("Invalid selection.")
     except ValueError:
         print("Invalid input. Please enter a number.")
-
-
 
 def find_person_by_name(people):
     name = input("Enter the name of the person to find: ")
