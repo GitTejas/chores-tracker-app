@@ -1,7 +1,6 @@
 from models.__init__ import CONN, CURSOR
 from datetime import datetime
 
-
 class Chore:
 
     all = []
@@ -36,3 +35,43 @@ class Chore:
                 self._due_date = due_date
             except ValueError:
                 raise ValueError("Due date must be in YYYY/MM/DD format")
+            
+        # @due_date.setter
+        # def due_date(self, due_date):
+        #     if isinstance(due_date, int): 
+        #         self._due_date = due_date
+        #     else:
+        #         raise ValueError("Due date must be an integer")
+
+        @property
+        def status(self):
+            return self._status
+        
+        @status.setter
+        def status(self, status):
+            if isinstance(status, str):
+                self._status = status
+            else:
+                raise ValueError("Status must be a string")
+            
+        @property
+        def priority(self):
+            return self._priority
+        
+        @priority.setter
+        def priority(self, priority):
+            if isinstance(priority, str):
+                self._priority = priority
+            else:
+                raise ValueError("Priority must be a string")
+            
+        @property
+        def person_id(self):
+            return self._person_id
+        
+        @person_id.setter
+        def person_id(self, person_id):
+            if isinstance(person_id, int):
+                self._person_id = person_id
+            else:
+                raise ValueError("Person ID must be an integer")
