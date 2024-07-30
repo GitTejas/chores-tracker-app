@@ -23,6 +23,9 @@ Chores Management
 - Update a Chore: Update the details of an existing chore.
 - Find a Chore by Task: Search for a chore by its task name.
 
+## Application Example
+Add example of CLI navigation
+
 ## Installation and Running the App
 To run the Chores Tracker App. app, follow these steps:
 
@@ -42,7 +45,6 @@ python seed.py
 python cli.py
 
 ```
-
 ## Requirements
 Python standard library. No additional packages are required.
 
