@@ -28,20 +28,20 @@ class Chore:
         def due_date(self):
             return self._due_date
 
-        @due_date.setter
-        def due_date(self, due_date):
-            if isinstance(due_date, int):
-                self._due_date = due_date
-            else:
-                raise ValueError("Due date must be an integer")
-        
         # @due_date.setter
         # def due_date(self, due_date):
-        #     try:
-        #         datetime.strptime(due_date, "%Y/%m/%d")
+        #     if isinstance(due_date, int):
         #         self._due_date = due_date
-        #     except ValueError:
-        #         raise ValueError("Due date must be in YYYY/MM/DD format")
+        #     else:
+        #         raise ValueError("Due date must be an integer")
+        
+        @due_date.setter
+        def due_date(self, due_date):
+            try:
+                datetime.strptime(due_date, "%Y/%m/%d")
+                self._due_date = due_date
+            except ValueError:
+                raise ValueError("Due date must be in YYYY/MM/DD format")
 
         @property
         def status(self):
