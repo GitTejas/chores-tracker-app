@@ -20,8 +20,7 @@ class Chore:
         if isinstance(task, str):
             self._task = task
         else:
-            raise ValueError("Task must be a string")
-            
+            raise ValueError("Task must be a string")   
 
     @property
     def status(self):

@@ -17,10 +17,10 @@ class Person:
 
     @name.setter
     def name(self, name):
-        if isinstance(name, str):
+        if isinstance(name, str) and len(name):
             self._name = name
         else:
-            raise ValueError("Name must be a string")
+            raise ValueError("Name must be a non-empty string")
 
     @property
     def room(self):
@@ -28,10 +28,10 @@ class Person:
 
     @room.setter
     def room(self, room):
-        if isinstance(room, str):
+        if isinstance(room, str) and len(room):
             self._room = room
         else:
-            raise ValueError("Room must be a string")
+            raise ValueError("Room must be a non-empty string")
 
     @classmethod
     def create_table(cls):
