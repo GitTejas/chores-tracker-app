@@ -94,7 +94,8 @@ def main():
         elif choice == 'm':
             manage_chores(people)
         elif choice == 'e':
-            print("Exiting the app. Good day!")
+            print("Exiting the app. Good Day!")
+            break
         else:
             print("Invalid choice, please try again.")
 

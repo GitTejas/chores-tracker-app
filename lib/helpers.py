@@ -1,7 +1,5 @@
-# lib/helpers.py
 from models.chore import Chore
 from models.person import Person
-from datetime import datetime
 
 def list_people(people):
     for index, person in enumerate(people):
@@ -53,9 +51,9 @@ def list_chores(people):
         print("---------------------------------------------------------------------")
         print(f"{person.name} (Room: {person.room})")
         for index, chore in enumerate(person.chores):
-            print(f"  {index + 1}. Task: {chore.task} | Due: {chore.due_date} | Status: {chore.status} | Priority: {chore.priority}")
+            print(f"  {index + 1}. Task: {chore.task} | Status: {chore.status} | Priority: {chore.priority}")
         print("---------------------------------------------------------------------")
-
+        
 def add_chore(people):
     list_people(people)
     try:
@@ -63,24 +61,26 @@ def add_chore(people):
         if 0 <= index < len(people):
             person = people[index]
             task = input("Enter the task: ")
-            due_date_str = input("Enter the due date (as YYYY/MM/DD): ")
-            try:
-                # Validate and parse the date
-                due_date = datetime.strptime(due_date_str, "%Y/%m/%d").date()
-            except ValueError:
-                print("Invalid date format. Please enter a date in YYYY/MM/DD format.")
-                return
+            
             status = input("Enter the status: ")
-            priority = input("Enter the priority: ")
+            while True:
+                priority = input("Enter the priority (High, Medium, Low): ")
+                if priority in ["High", "Medium", "Low"]:
+                    break
+                else:
+                    print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
             
             # Create and add the chore
-            chore = Chore(task=task, due_date=due_date, status=status, priority=priority, person_id=person.id)
+            chore = Chore(task=task, status=status, priority=priority, person_id=person.id)
             person.add_chore(chore)
             print(f"Chore '{task}' added for {person.name}.")
         else:
             print("Invalid selection.")
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
+    except ValueError as ve:
+        print(f"Invalid input: {ve}. Please enter a valid number.")
+
+
+
 
 def delete_chore(people):
     list_people(people)
@@ -102,7 +102,6 @@ def delete_chore(people):
     except ValueError:
         print("Invalid input. Please enter a number.")
 
-
 def update_chore(people):
     list_people(people)
     try:
@@ -115,24 +114,11 @@ def update_chore(people):
             if 0 <= chore_index < len(person.chores):
                 chore = person.chores[chore_index]
                 new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current): ")
-                
-                # Handle new due date input
-                new_due_date_str = input(f"Enter new due date for '{chore.due_date}' (YYYY/MM/DD, leave blank to keep current): ")
-                if new_due_date_str:
-                    try:
-                        new_due_date = datetime.strptime(new_due_date_str, "%Y/%m/%d").date()
-                    except ValueError:
-                        print("Invalid date format. Please enter a date in YYYY/MM/DD format.")
-                        return
-                else:
-                    new_due_date = chore.due_date
-
                 new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ")
                 new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ")
 
                 if new_task:
                     chore.task = new_task
-                chore.due_date = new_due_date
                 if new_status:
                     chore.status = new_status
                 if new_priority:
@@ -146,6 +132,7 @@ def update_chore(people):
             print("Invalid selection.")
     except ValueError:
         print("Invalid input. Please enter a number.")
+
 
 
 def find_person_by_name(people):
