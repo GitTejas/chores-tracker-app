@@ -1,4 +1,4 @@
-from models.__init__ import __init__
+from models.__init__ import CONN, CURSOR
 
 class Person:
     
