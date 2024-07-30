@@ -6,12 +6,32 @@ def list_people(people):
         print(f"{index + 1}. {person}")
 
 def add_person(people):
-    name = input("Enter the person's name: ")
-    room = input("Enter the person's room: ")
-    new_person = Person(name=name, room=room)
-    new_person.save()  # Ensure the person is saved to the database
-    people.append(new_person)
-    print(f"Person '{name}' added.")
+    while True:
+        name = input("Enter the person's name: ").strip()
+        if not name:
+            print("Name cannot be empty. Please enter a valid name.")
+            continue
+        if name.isdigit():
+            print("Name cannot be all digits. Please enter a valid name.")
+            continue
+        if len(name) <= 2 or len(name) >= 15:
+            print("Name must be greater than 2 characters and less than 15 characters. Please enter a valid name.")
+            continue
+        
+        room = input("Enter the person's room: ").strip()
+        if not room:
+            print("Room cannot be empty. Please enter a valid room.")
+            continue
+        if room.isdigit():  # Example: Ensure room is not just a number if that's a requirement
+            print("Room cannot be all digits. Please enter a valid room.")
+            continue
+        
+        new_person = Person(name=name, room=room)
+        new_person.save()  # Ensure the person is saved to the database
+        people.append(new_person)
+        print(f"Person '{name}' added.")
+        break
+
 
 def delete_person(people):
     list_people(people)
@@ -32,18 +52,41 @@ def update_person(people):
         index = int(input("Enter the number of the person to update: ")) - 1
         if 0 <= index < len(people):
             person = people[index]
-            new_name = input(f"Enter new name for {person.name} (leave blank to keep current): ")
-            new_room = input(f"Enter new room for {person.room} (leave blank to keep current): ")
-            if new_name:
+
+            # Update name with validation
+            while True:
+                new_name = input(f"Enter new name for {person.name} (leave blank to keep current): ").strip()
+                if new_name == "":
+                    new_name = person.name  # Keep the current name if left blank
+                    break
+                if new_name.isdigit():
+                    print("Name cannot be all digits. Please enter a valid name.")
+                    continue
+                if len(new_name) <= 2 or len(new_name) >= 20:
+                    print("Name must be greater than 2 characters and less than 20 characters.")
+                    continue
                 person.name = new_name
-            if new_room:
+                break
+
+            # Update room with validation
+            while True:
+                new_room = input(f"Enter new room for {person.room} (leave blank to keep current): ").strip()
+                if new_room == "":
+                    new_room = person.room  # Keep the current room if left blank
+                    break
+                if new_room.isdigit():
+                    print("Room cannot be all digits. Please enter a valid room.")
+                    continue
                 person.room = new_room
+                break
+
             person.save()  # Ensure the person is updated in the database
             print(f"Person '{person.name}' updated.")
         else:
             print("Invalid selection.")
     except ValueError:
         print("Invalid input. Please enter a number.")
+
 
 def list_chores(people):
     print("Chores List:")
@@ -111,16 +154,26 @@ def update_chore(people):
             chore_index = int(input("Enter the number of the chore to update: ")) - 1
             if 0 <= chore_index < len(person.chores):
                 chore = person.chores[chore_index]
+                
+                # Ask for new task
                 new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current): ")
-                new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ")
-                new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ")
-
                 if new_task:
                     chore.task = new_task
+                
+                # Ask for new status
+                new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ")
                 if new_status:
                     chore.status = new_status
-                if new_priority:
-                    chore.priority = new_priority
+
+                # Ask for new priority with validation loop
+                while True:
+                    new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ")
+                    if new_priority in ["High", "Medium", "Low", ""]:
+                        if new_priority:
+                            chore.priority = new_priority
+                        break
+                    else:
+                        print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
 
                 chore.save()  # Ensure the chore is updated in the database
                 print(f"Chore '{chore.task}' updated.")
@@ -129,7 +182,8 @@ def update_chore(people):
         else:
             print("Invalid selection.")
     except ValueError:
-        print("Invalid input. Please enter a number.")
+        print("Invalid input. Please enter a valid number.")
+
 
 def find_person_by_name(people):
     name = input("Enter the name of the person to find: ")

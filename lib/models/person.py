@@ -21,7 +21,7 @@ class Person:
             self._name = name
         else:
             raise ValueError("Name must be a non-empty string")
-
+        
     @property
     def room(self):
         return self._room
