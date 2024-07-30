@@ -40,7 +40,7 @@ def view_people(people):
         print("*                  Press 5.  Back to Main Menu                      *")
         print("---------------------------------------------------------------------")
 
-        choice = input("Enter your choice")
+        choice = input("Enter your choice: ")
         if choice == '1':
             add_person(people)
         elif choice == '2':
@@ -52,26 +52,51 @@ def view_people(people):
         elif choice == '5':
             break 
         else:
-            print("Invalid choice, please try again")
+            print("Invalid choice, please try again.")
 
+def manage_chores(people):
+    while True:
+        print("*********************************************************************")
+        print("*                         🗓️  MANAGE CHORES 🗓️                        *")
+        print("*********************************************************************")
+        print("*                Please choose from the following:                  *")
+        print("*********************************************************************")
+        print("*                  Press 1.  View All Chores                        *")
+        print("*                  Press 2.  Add New Chore                          *")
+        print("*                  Press 3.  Delete a Chore                         *")
+        print("*                  Press 4.  Update a Chore                         *")
+        print("*                  Press 5.  Find a Chore by Task                   *")
+        print("*                  Press 6.  Back to Main Menu                      *")
+        print("---------------------------------------------------------------------")
+
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            list_chores(people)
+        elif choice == '2':
+            add_chore(people)
+        elif choice == '3':
+            delete_chore(people)
+        elif choice == '4':
+            update_chore(people)
+        elif choice == '5':
+            find_chore_by_task(people)
+        elif choice == '6':
+            break
+        else:
+            print("Invalid choice, please try again.")
 
 def main():
     while True:
-        menu()
+        main_page()
         choice = input("> ")
-        if choice == "0":
-            exit_program()
-        elif choice == "1":
-            helper_1()
+        if choice == 'v':
+            view_people(people)
+        elif choice == 'm':
+            manage_chores(people)
+        elif choice == 'e':
+            print("Exiting the app. Good day!")
         else:
-            print("Invalid choice")
-
-
-def menu():
-    print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Some useful function")
-
+            print("Invalid choice, please try again.")
 
 if __name__ == "__main__":
     main()
