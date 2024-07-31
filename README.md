@@ -25,6 +25,7 @@ Chores Management
 
 ## Application Example
 Add example of CLI navigation
+![Chores Tracker Demo](ChoresGif.gif)
 
 ## Installation and Running the App
 To run the Chores Tracker App. app, follow these steps:
