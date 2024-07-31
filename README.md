@@ -24,7 +24,7 @@ Chores Management
 - Find a Chore by Task: Search for a chore by its task name.
 
 ## Application Example
-Add example of CLI navigation
+Example CLI navigation
 ![Chores Tracker Demo](ChoresGif.gif)
 
 ## Installation and Running the App
