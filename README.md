@@ -39,8 +39,6 @@ cd chores-tracker-app
 2. Run the App:
 
 ```console
-pipenv install
-pipenv shell
 
 python /lib
 python seed.py
