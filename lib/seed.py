@@ -1,14 +1,14 @@
 from models.person import Person
 from models.chore import Chore
 
-def seed_database():
+def seed():
     # Initialize database tables
     Person.drop_table()
     Chore.drop_table()
     Person.create_table()
     Chore.create_table()
 
-    # Seed Data / Initialize sample data
+    # Initialize seed data
     person1 = Person.create(name="Bella", room="Kitchen")
     person2 = Person.create(name="Keiji", room="Living Room")
     person3 = Person.create(name="Serenity", room="Garden")
@@ -40,5 +40,5 @@ def seed_database():
 
     return [person1, person2, person3, person4]
 
-people = seed_database()
+people = seed()
 print("Seeding Successful!")

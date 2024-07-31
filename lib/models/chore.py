@@ -2,8 +2,6 @@ from models.__init__ import CONN, CURSOR
 
 class Chore:
 
-    all = []
-
     def __init__(self, task, status, priority, person_id=0, id=None):
         self.id = id
         self.task = task
@@ -131,5 +129,5 @@ class Chore:
         rows = CURSOR.execute(sql, (person_id,)).fetchall()
         return [cls.instance_from_db(row) for row in rows]
 
-    def __repr__(self):
+    def __str__(self):
         return f"{self.task} - Status: {self.status} - Priority: {self.priority}"

@@ -2,6 +2,7 @@ from models.chore import Chore
 from models.person import Person
 
 def list_people(people):
+    people = Person.get_all()
     for index, person in enumerate(people):
         print(f"{index + 1}. {person}")
 
@@ -14,18 +15,18 @@ def add_person(people):
         if name.isdigit():
             print("Name cannot be all digits. Please enter a valid name.")
             continue
-        if len(name) <= 2 or len(name) >= 15:
-            print("Name must be greater than 2 characters and less than 15 characters. Please enter a valid name.")
+        if len(name) <= 1 or len(name) >= 15:
+            print("Name must be greater than 1 characters and less than 15 characters. Please enter a valid name.")
             continue  
         room = input("Enter the person's room: ").strip()
         if not room:
             print("Room cannot be empty. Please enter a valid room.")
             continue
-        if room.isdigit():  # Example: Ensure room is not just a number if that's a requirement
+        if room.isdigit():
             print("Room cannot be all digits. Please enter a valid room.")
             continue
         new_person = Person(name=name, room=room)
-        new_person.save()  # Ensure the person is saved to the database
+        new_person.save()  # Saved to the database
         people.append(new_person)
         print(f"Person '{name}' added.")
         break
@@ -36,7 +37,7 @@ def delete_person(people):
         index = int(input("Enter the number of the person to delete: ")) - 1
         if 0 <= index < len(people):
             deleted_person = people.pop(index)
-            deleted_person.delete()  # Ensure the person is deleted from the database
+            deleted_person.delete()  # Deleted from the database
             print(f"Person '{deleted_person.name}' deleted.")
         else:
             print("Invalid selection.")
@@ -49,7 +50,6 @@ def update_person(people):
         index = int(input("Enter the number of the person to update: ")) - 1
         if 0 <= index < len(people):
             person = people[index]
-
             # Update name with validation
             while True:
                 new_name = input(f"Enter new name for {person.name} (leave blank to keep current): ").strip()
@@ -64,7 +64,6 @@ def update_person(people):
                     continue
                 person.name = new_name
                 break
-
             # Update room with validation
             while True:
                 new_room = input(f"Enter new room for {person.room} (leave blank to keep current): ").strip()
@@ -76,14 +75,12 @@ def update_person(people):
                     continue
                 person.room = new_room
                 break
-
-            person.save()  # Ensure the person is updated in the database
+            person.save()  # Updated in the database
             print(f"Person '{person.name}' updated.")
         else:
             print("Invalid selection.")
     except ValueError:
         print("Invalid input. Please enter a number.")
-
 
 def list_chores(people):
     print("Chores List:")
@@ -109,7 +106,6 @@ def add_chore(people):
                     break
                 else:
                     print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-            
             # Create and add the chore
             chore = Chore(task=task, status=status, priority=priority, person_id=person.id)
             person.add_chore(chore)
@@ -118,7 +114,6 @@ def add_chore(people):
             print("Invalid selection.")
     except ValueError as ve:
         print(f"Invalid input: Please enter a valid number.")
-
 
 def delete_chore(people):
     list_people(people)
@@ -131,7 +126,7 @@ def delete_chore(people):
             chore_index = int(input("Enter the number of the chore to delete: ")) - 1
             if 0 <= chore_index < len(person.chores):
                 deleted_chore = person.chores.pop(chore_index)
-                deleted_chore.delete()  # Ensure the chore is deleted from the database
+                deleted_chore.delete()  # Deleted from the database
                 print(f"Chore '{deleted_chore.task}' deleted.")
             else:
                 print("Invalid selection.")
@@ -151,17 +146,14 @@ def update_chore(people):
             chore_index = int(input("Enter the number of the chore to update: ")) - 1
             if 0 <= chore_index < len(person.chores):
                 chore = person.chores[chore_index]
-                
                 # Ask for new task
                 new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current): ")
                 if new_task:
                     chore.task = new_task
-                
                 # Ask for new status
                 new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ")
                 if new_status:
                     chore.status = new_status
-
                 # Ask for new priority with validation loop
                 while True:
                     new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ")
@@ -171,8 +163,7 @@ def update_chore(people):
                         break
                     else:
                         print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-
-                chore.save()  # Ensure the chore is updated in the database
+                chore.save()  # Updated in the database
                 print(f"Chore '{chore.task}' updated.")
             else:
                 print("Invalid selection.")
@@ -180,7 +171,6 @@ def update_chore(people):
             print("Invalid selection.")
     except ValueError:
         print("Invalid input. Please enter a valid number.")
-
 
 def find_person_by_name(people):
     name = input("Enter the name of the person to find: ")
