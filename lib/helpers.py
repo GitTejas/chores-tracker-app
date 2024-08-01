@@ -1,6 +1,9 @@
 from models.chore import Chore
 from models.person import Person
 
+# def get_all_people():
+#     return Person.get_all()
+
 def list_people(people):
     people = Person.get_all()
     for index, person in enumerate(people):
@@ -13,7 +16,7 @@ def add_person(people):
             print("Name cannot be empty. Please enter a valid name.")
             continue
         if name.isdigit():
-            print("Name cannot be all digits. Please enter a valid name.")
+            print("Name cannot be a digit. Please enter a valid name.")
             continue
         if len(name) <= 1 or len(name) >= 15:
             print("Name must be greater than 1 characters and less than 15 characters. Please enter a valid name.")
@@ -98,8 +101,12 @@ def add_chore(people):
         if 0 <= index < len(people):
             person = people[index]
             task = input("Enter the task: ")
-            
-            status = input("Enter the status: ")
+            while True:
+                status = input("Enter the status (Pending or Completed): ")
+                if status in ["Pending", "Completed"]:
+                    break
+                else:
+                    print("Invalid status. Please enter 'Pending', or 'Completed'.")
             while True:
                 priority = input("Enter the priority (High, Medium, Low): ")
                 if priority in ["High", "Medium", "Low"]:
@@ -114,6 +121,7 @@ def add_chore(people):
             print("Invalid selection.")
     except ValueError as ve:
         print(f"Invalid input: Please enter a valid number.")
+
 
 def delete_chore(people):
     list_people(people)
@@ -151,9 +159,14 @@ def update_chore(people):
                 if new_task:
                     chore.task = new_task
                 # Ask for new status
-                new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ")
-                if new_status:
-                    chore.status = new_status
+                while True:
+                    new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ")
+                    if new_status in ["Pending", "Completed"]:
+                        if new_status:
+                            chore.status = new_status
+                        break
+                    else:
+                        print("Invalid priority. Please enter 'Pending', or 'Completed'.")
                 # Ask for new priority with validation loop
                 while True:
                     new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ")
