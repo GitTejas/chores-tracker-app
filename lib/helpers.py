@@ -1,8 +1,6 @@
 from models.chore import Chore
 from models.person import Person
 
-# def get_all_people():
-#     return Person.get_all()
 
 def list_people(people):
     people = Person.get_all()
