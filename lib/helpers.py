@@ -26,7 +26,7 @@ def add_person(people):
         if room.isdigit():
             print("Room cannot be all digits. Please enter a valid room.")
             continue
-        new_person = Person(name=name, room=room)
+        new_person = Person.create(name, room)
         new_person.save()  # Saved to the database
         people.append(new_person)
         print(f"Person '{name}' added.")
@@ -183,24 +183,69 @@ def update_chore(people):
     except ValueError:
         print("Invalid input. Please enter a valid number.")
 
-def find_person_by_name(people):
-    name = input("Enter the name of the person to find: ")
-    found_people = [person for person in people if person.name.lower() == name.lower()]
-    if found_people:
-        for person in found_people:
-            print(person)
-    else:
-        print(f"No person found with the name '{name}'.")
 
-def find_chore_by_task(people):
-    task = input("Enter the task of the chore to find: ")
-    found_chores = []
-    for person in people:
-        for chore in person.chores:
-            if chore.task.lower() == task.lower():
-                found_chores.append((person, chore))
-    if found_chores:
-        for person, chore in found_chores:
-            print(f"Chore '{chore.task}' found for {person.name}.")
+def find_person_by_id(person_id):
+    person = Person.find_by_id(person_id)
+    if person:
+        return person
     else:
-        print(f"No chore found with the task '{task}'.")
+        print("Person not found.")
+        return None
+
+def find_chore_by_id(chore_id):
+    chore = Chore.find_by_id(chore_id)
+    if chore:
+        return chore
+    else:
+        print("Chore not found.")
+        return None
+
+def find_person_by_id():
+    try:
+        person_id = int(input("Enter the ID of the person to find: "))
+        person = Person.find_by_id(person_id)
+        if person:
+            print(person)
+            return person
+        else:
+            print(f"No person found with ID '{person_id}'.")
+            return None
+    except ValueError:
+        print("Invalid ID. Please enter a valid integer.")
+        return None
+
+def find_chore_by_id():
+    try:
+        chore_id = int(input("Enter the ID of the chore to find: "))
+        chore = Chore.find_by_id(chore_id)
+        if chore:
+            print(f"Chore '{chore.task}' found.")
+            return chore
+        else:
+            print(f"No chore found with ID '{chore_id}'.")
+            return None
+    except ValueError:
+        print("Invalid ID. Please enter a valid integer.")
+        return None
+
+# def find_person_by_name(people):
+#     name = input("Enter the name of the person to find: ")
+#     found_people = [person for person in people if person.name.lower() == name.lower()]
+#     if found_people:
+#         for person in found_people:
+#             print(person)
+#     else:
+#         print(f"No person found with the name '{name}'.")
+
+# def find_chore_by_task(people):
+#     task = input("Enter the task of the chore to find: ")
+#     found_chores = []
+#     for person in people:
+#         for chore in person.chores:
+#             if chore.task.lower() == task.lower():
+#                 found_chores.append((person, chore))
+#     if found_chores:
+#         for person, chore in found_chores:
+#             print(f"Chore '{chore.task}' found for {person.name}.")
+#     else:
+#         print(f"No chore found with the task '{task}'.")
