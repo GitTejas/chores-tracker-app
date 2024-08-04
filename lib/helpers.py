@@ -17,20 +17,25 @@ def add_person(people):
             print("Name cannot be a digit. Please enter a valid name.")
             continue
         if len(name) <= 1 or len(name) >= 15:
-            print("Name must be greater than 1 characters and less than 15 characters. Please enter a valid name.")
+            print("Name must be greater than 1 character and less than 15 characters. Please enter a valid name.")
             continue  
-        room = input("Enter the person's room: ").strip()
-        if not room:
-            print("Room cannot be empty. Please enter a valid room.")
-            continue
-        if room.isdigit():
-            print("Room cannot be all digits. Please enter a valid room.")
-            continue
+        
+        while True:  # Start the nested loop for room input
+            room = input("Enter the person's room: ").strip()
+            if not room:
+                print("Room cannot be empty. Please enter a valid room.")
+                continue
+            if room.isdigit():
+                print("Room cannot be all digits. Please enter a valid room.")
+                continue
+            break  # If room is valid, exit the nested loop
+        
         new_person = Person.create(name, room)
         new_person.save()  # Saved to the database
         people.append(new_person)
         print(f"Person '{name}' added.")
-        break
+        break  # Exit the outer loop as well
+
 
 def delete_person(people):
     list_people(people)
