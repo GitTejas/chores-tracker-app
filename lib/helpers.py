@@ -17,16 +17,17 @@ def add_person(people):
             continue
         if len(name) <= 1 or len(name) >= 15:
             print("Name must be greater than 1 character and less than 15 characters. Please enter a valid name.")
-            continue  
+            continue
+        
         while True:  
             room = input("Enter the person's room: ").strip()
             if not room:
                 print("Room cannot be empty. Please enter a valid room.")
-                continue
-            if room.isdigit():
+            elif room.isdigit():
                 print("Room cannot be all digits. Please enter a valid room.")
-                continue
-            break  
+            else:
+                break
+            
         new_person = Person.create(name, room)
         new_person.save()
         people.append(new_person)
