@@ -41,7 +41,6 @@ cd chores-tracker-app
 ```console
 
 python /lib
-python seed.py
 python cli.py
 
 ```
