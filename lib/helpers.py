@@ -1,7 +1,6 @@
 from models.chore import Chore
 from models.person import Person
 
-
 def list_people(people):
     people = Person.get_all()
     for index, person in enumerate(people):
@@ -19,8 +18,7 @@ def add_person(people):
         if len(name) <= 1 or len(name) >= 15:
             print("Name must be greater than 1 character and less than 15 characters. Please enter a valid name.")
             continue  
-        
-        while True:  # Start the nested loop for room input
+        while True:  
             room = input("Enter the person's room: ").strip()
             if not room:
                 print("Room cannot be empty. Please enter a valid room.")
@@ -28,13 +26,12 @@ def add_person(people):
             if room.isdigit():
                 print("Room cannot be all digits. Please enter a valid room.")
                 continue
-            break  # If room is valid, exit the nested loop
-        
+            break  
         new_person = Person.create(name, room)
-        new_person.save()  # Saved to the database
+        new_person.save()
         people.append(new_person)
         print(f"Person '{name}' added.")
-        break  # Exit the outer loop as well
+        break
 
 
 def delete_person(people):
@@ -136,8 +133,6 @@ def add_chore(people):
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
             print("Invalid input: Please enter a valid number.")
-
-
 
 
 def delete_chore(people):
@@ -250,25 +245,3 @@ def find_chore_by_id():
     except ValueError:
         print("Invalid ID. Please enter a valid integer.")
         return None
-
-# def find_person_by_name(people):
-#     name = input("Enter the name of the person to find: ")
-#     found_people = [person for person in people if person.name.lower() == name.lower()]
-#     if found_people:
-#         for person in found_people:
-#             print(person)
-#     else:
-#         print(f"No person found with the name '{name}'.")
-
-# def find_chore_by_task(people):
-#     task = input("Enter the task of the chore to find: ")
-#     found_chores = []
-#     for person in people:
-#         for chore in person.chores:
-#             if chore.task.lower() == task.lower():
-#                 found_chores.append((person, chore))
-#     if found_chores:
-#         for person, chore in found_chores:
-#             print(f"Chore '{chore.task}' found for {person.name}.")
-#     else:
-#         print(f"No chore found with the task '{task}'.")
