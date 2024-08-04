@@ -35,16 +35,19 @@ def add_person(people):
 
 def delete_person(people):
     list_people(people)
-    try:
-        index = int(input("Enter the number of the person to delete: ")) - 1
-        if 0 <= index < len(people):
-            deleted_person = people.pop(index)
-            deleted_person.delete()
-            print(f"Person '{deleted_person.name}' deleted.")
-        else:
-            print("Invalid selection.")
-    except ValueError:
-        print("Invalid input. Please enter a number.")
+    while True:
+        try:
+            index = int(input("Enter the number of the person to delete: ")) - 1
+            if 0 <= index < len(people):
+                deleted_person = people.pop(index)
+                deleted_person.delete()
+                print(f"Person '{deleted_person.name}' deleted.")
+                break  # Exit the loop after successful deletion
+            else:
+                print("Invalid selection. Please enter a valid number.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
 
 def update_person(people):
     list_people(people)
