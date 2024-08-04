@@ -42,7 +42,7 @@ def delete_person(people):
                 deleted_person = people.pop(index)
                 deleted_person.delete()
                 print(f"Person '{deleted_person.name}' deleted.")
-                break  # Exit the loop after successful deletion
+                break
             else:
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
@@ -51,39 +51,42 @@ def delete_person(people):
 
 def update_person(people):
     list_people(people)
-    try:
-        index = int(input("Enter the number of the person to update: ")) - 1
-        if 0 <= index < len(people):
-            person = people[index]
-            while True:
-                new_name = input(f"Enter new name for {person.name} (leave blank to keep current): ").strip()
-                if new_name == "":
-                    new_name = person.name
+    while True:
+        try:
+            index = int(input("Enter the number of the person to update: ")) - 1
+            if 0 <= index < len(people):
+                person = people[index]
+                while True:
+                    new_name = input(f"Enter new name for {person.name} (leave blank to keep current): ").strip()
+                    if new_name == "":
+                        new_name = person.name
+                        break
+                    if new_name.isdigit():
+                        print("Name cannot be all digits. Please enter a valid name.")
+                        continue
+                    if len(new_name) <= 1 or len(new_name) >= 20:
+                        print("Name must be greater than 1 character and less than 20 characters.")
+                        continue
+                    person.name = new_name
                     break
-                if new_name.isdigit():
-                    print("Name cannot be all digits. Please enter a valid name.")
-                    continue
-                if len(new_name) <= 1 or len(new_name) >= 20:
-                    print("Name must be greater than 1 character and less than 20 characters.")
-                    continue
-                person.name = new_name
-                break
-            while True:
-                new_room = input(f"Enter new room for {person.room} (leave blank to keep current): ").strip()
-                if new_room == "":
-                    new_room = person.room
+                while True:
+                    new_room = input(f"Enter new room for {person.room} (leave blank to keep current): ").strip()
+                    if new_room == "":
+                        new_room = person.room
+                        break
+                    if new_room.isdigit():
+                        print("Room cannot be all digits. Please enter a valid room.")
+                        continue
+                    person.room = new_room
                     break
-                if new_room.isdigit():
-                    print("Room cannot be all digits. Please enter a valid room.")
-                    continue
-                person.room = new_room
+                person.save()
+                print(f"Person '{person.name}' updated.")
                 break
-            person.save()
-            print(f"Person '{person.name}' updated.")
-        else:
-            print("Invalid selection.")
-    except ValueError:
-        print("Invalid input. Please enter a number.")
+            else:
+                print("Invalid selection. Please enter a valid number.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
 
 def list_chores(people):
     print("Chores List:")
@@ -115,7 +118,6 @@ def add_chore(people):
                         break
                     else:
                         print("Invalid status. Please enter 'Pending' or 'Completed'.")
-
                 while True:
                     priority = input("Enter the priority (High, Medium, Low): ")
                     if priority in ["High", "Medium", "Low"]:
@@ -132,24 +134,32 @@ def add_chore(people):
             print("Invalid input: Please enter a valid number.")
 
 def delete_chore(people):
-    list_people(people)
-    try:
-        person_index = int(input("Enter the number of the person to delete a chore for: ")) - 1
-        if 0 <= person_index < len(people):
-            person = people[person_index]
-            for index, chore in enumerate(person.chores):
-                print(f"  {index + 1}. {chore}")
-            chore_index = int(input("Enter the number of the chore to delete: ")) - 1
-            if 0 <= chore_index < len(person.chores):
-                deleted_chore = person.chores.pop(chore_index)
-                deleted_chore.delete()
-                print(f"Chore '{deleted_chore.task}' deleted.")
+    while True:
+        list_people(people)
+        try:
+            person_index = int(input("Enter the number of the person to delete a chore for: ")) - 1
+            if 0 <= person_index < len(people):
+                person = people[person_index]
+                while True:
+                    for index, chore in enumerate(person.chores):
+                        print(f"  {index + 1}. {chore}")
+                    try:
+                        chore_index = int(input("Enter the number of the chore to delete: ")) - 1
+                        if 0 <= chore_index < len(person.chores):
+                            deleted_chore = person.chores.pop(chore_index)
+                            deleted_chore.delete()
+                            print(f"Chore '{deleted_chore.task}' deleted.")
+                            break
+                        else:
+                            print("Invalid selection. Please enter a valid number.")
+                    except ValueError:
+                        print("Invalid input. Please enter a number.")
+                break
             else:
-                print("Invalid selection.")
-        else:
-            print("Invalid selection.")
-    except ValueError:
-        print("Invalid input. Please enter a number.")
+                print("Invalid selection. Please enter a valid number.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
 
 def update_chore(people):
     list_people(people)
