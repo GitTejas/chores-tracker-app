@@ -162,47 +162,54 @@ def delete_chore(people):
 
 
 def update_chore(people):
-    list_people(people)
-    try:
-        person_index = int(input("Enter the number of the person to update a chore for: ")) - 1
-        if 0 <= person_index < len(people):
-            person = people[person_index]
-            for index, chore in enumerate(person.chores):
-                print(f"  {index + 1}. {chore}")
-            chore_index = int(input("Enter the number of the chore to update: ")) - 1
-            if 0 <= chore_index < len(person.chores):
-                chore = person.chores[chore_index]
+    while True:
+        list_people(people)
+        try:
+            person_index = int(input("Enter the number of the person to update a chore for: ")) - 1
+            if 0 <= person_index < len(people):
+                person = people[person_index]
+                while True:
+                    for index, chore in enumerate(person.chores):
+                        print(f"  {index + 1}. {chore}")
+                    try:
+                        chore_index = int(input("Enter the number of the chore to update: ")) - 1
+                        if 0 <= chore_index < len(person.chores):
+                            chore = person.chores[chore_index]
 
-                new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current): ")
-                if new_task:
-                    chore.task = new_task
-                
-                while True:
-                    new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ")
-                    if new_status in ["Pending", "Completed"]:
-                        if new_status:
-                            chore.status = new_status
-                        break
-                    else:
-                        print("Invalid priority. Please enter 'Pending', or 'Completed'.")
-                
-                while True:
-                    new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ")
-                    if new_priority in ["High", "Medium", "Low", ""]:
-                        if new_priority:
-                            chore.priority = new_priority
-                        break
-                    else:
-                        print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-                chore.save()
-                print(f"Chore '{chore.task}' updated.")
+                            new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current): ").strip()
+                            if new_task:
+                                chore.task = new_task
+                            
+                            while True:
+                                new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ").strip()
+                                if new_status in ["Pending", "Completed", ""]:
+                                    if new_status:
+                                        chore.status = new_status
+                                    break
+                                else:
+                                    print("Invalid status. Please enter 'Pending' or 'Completed'.")
+
+                            while True:
+                                new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ").strip()
+                                if new_priority in ["High", "Medium", "Low", ""]:
+                                    if new_priority:
+                                        chore.priority = new_priority
+                                    break
+                                else:
+                                    print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
+
+                            chore.save()
+                            print(f"Chore '{chore.task}' updated.")
+                            break
+                        else:
+                            print("Invalid selection. Please enter a valid number.")
+                    except ValueError:
+                        print("Invalid input. Please enter a number.")
+                break
             else:
-                print("Invalid selection.")
-        else:
-            print("Invalid selection.")
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
-
+                print("Invalid selection. Please enter a valid number.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
 def find_person_by_id(person_id):
     person = Person.find_by_id(person_id)
@@ -221,33 +228,32 @@ def find_chore_by_id(chore_id):
         return None
 
 def find_person_by_id():
-    try:
-        person_id = int(input("Enter the ID of the person to find: "))
-        person = Person.find_by_id(person_id)
-        if person:
-            print(person)
-            return person
-        else:
-            print(f"No person found with ID '{person_id}'.")
-            return None
-    except ValueError:
-        print("Invalid ID. Please enter a valid integer.")
-        return None
+    while True:
+        try:
+            person_id = int(input("Enter the ID of the person to find: "))
+            person = Person.find_by_id(person_id)
+            if person:
+                print(person)
+                return person
+            else:
+                print(f"No person found with ID '{person_id}'.")
+        except ValueError:
+            print("Invalid ID. Please enter a valid integer.")
+
 
 def find_chore_by_id():
-    try:
-        chore_id = int(input("Enter the ID of the chore to find: "))
-        chore = Chore.find_by_id(chore_id)
-        if chore:
-            person = Person.find_by_id(chore.person_id)
-            if person:
-                print(f"Chore '{chore.task}' found for {person.name}.")
+    while True:
+        try:
+            chore_id = int(input("Enter the ID of the chore to find: "))
+            chore = Chore.find_by_id(chore_id)
+            if chore:
+                person = Person.find_by_id(chore.person_id)
+                if person:
+                    print(f"Chore '{chore.task}' found for {person.name}.")
+                else:
+                    print(f"Chore '{chore.task}' found, but no person associated with this chore.")
+                return chore
             else:
-                print(f"Chore '{chore.task}' found, but no person associated with this chore.")
-            return chore
-        else:
-            print(f"No chore found with ID '{chore_id}'.")
-            return None
-    except ValueError:
-        print("Invalid ID. Please enter a valid integer.")
-        return None
+                print(f"No chore found with ID '{chore_id}'.")
+        except ValueError:
+            print("Invalid ID. Please enter a valid integer.")
