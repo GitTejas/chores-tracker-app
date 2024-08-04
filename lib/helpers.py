@@ -65,8 +65,8 @@ def update_person(people):
                 if new_name.isdigit():
                     print("Name cannot be all digits. Please enter a valid name.")
                     continue
-                if len(new_name) <= 2 or len(new_name) >= 20:
-                    print("Name must be greater than 2 characters and less than 20 characters.")
+                if len(new_name) <= 1 or len(new_name) >= 20:
+                    print("Name must be greater than 1 character and less than 20 characters.")
                     continue
                 person.name = new_name
                 break
