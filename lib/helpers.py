@@ -33,14 +33,13 @@ def add_person(people):
         print(f"Person '{name}' added.")
         break
 
-
 def delete_person(people):
     list_people(people)
     try:
         index = int(input("Enter the number of the person to delete: ")) - 1
         if 0 <= index < len(people):
             deleted_person = people.pop(index)
-            deleted_person.delete()  # Deleted from the database
+            deleted_person.delete()
             print(f"Person '{deleted_person.name}' deleted.")
         else:
             print("Invalid selection.")
@@ -53,11 +52,10 @@ def update_person(people):
         index = int(input("Enter the number of the person to update: ")) - 1
         if 0 <= index < len(people):
             person = people[index]
-            # Update name with validation
             while True:
                 new_name = input(f"Enter new name for {person.name} (leave blank to keep current): ").strip()
                 if new_name == "":
-                    new_name = person.name  # Keep the current name if left blank
+                    new_name = person.name
                     break
                 if new_name.isdigit():
                     print("Name cannot be all digits. Please enter a valid name.")
@@ -67,18 +65,17 @@ def update_person(people):
                     continue
                 person.name = new_name
                 break
-            # Update room with validation
             while True:
                 new_room = input(f"Enter new room for {person.room} (leave blank to keep current): ").strip()
                 if new_room == "":
-                    new_room = person.room  # Keep the current room if left blank
+                    new_room = person.room
                     break
                 if new_room.isdigit():
                     print("Room cannot be all digits. Please enter a valid room.")
                     continue
                 person.room = new_room
                 break
-            person.save()  # Updated in the database
+            person.save()
             print(f"Person '{person.name}' updated.")
         else:
             print("Invalid selection.")
@@ -108,8 +105,7 @@ def add_chore(people):
                     elif task.isdigit():
                         print("Task cannot be all digits. Please enter a valid task.")
                     else:
-                        break  # Exit the loop if the task is valid
-
+                        break
                 while True:
                     status = input("Enter the status (Pending or Completed): ")
                     if status in ["Pending", "Completed"]:
@@ -123,17 +119,14 @@ def add_chore(people):
                         break
                     else:
                         print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-
-                # Create and add the chore
                 chore = Chore(task=task, status=status, priority=priority, person_id=person.id)
                 person.add_chore(chore)
                 print(f"Chore '{task}' added for {person.name}.")
-                break  # Exit the loop after adding the chore
+                break
             else:
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
             print("Invalid input: Please enter a valid number.")
-
 
 def delete_chore(people):
     list_people(people)
@@ -146,7 +139,7 @@ def delete_chore(people):
             chore_index = int(input("Enter the number of the chore to delete: ")) - 1
             if 0 <= chore_index < len(person.chores):
                 deleted_chore = person.chores.pop(chore_index)
-                deleted_chore.delete()  # Deleted from the database
+                deleted_chore.delete()
                 print(f"Chore '{deleted_chore.task}' deleted.")
             else:
                 print("Invalid selection.")
@@ -166,11 +159,11 @@ def update_chore(people):
             chore_index = int(input("Enter the number of the chore to update: ")) - 1
             if 0 <= chore_index < len(person.chores):
                 chore = person.chores[chore_index]
-                # Ask for new task
+
                 new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current): ")
                 if new_task:
                     chore.task = new_task
-                # Ask for new status
+                
                 while True:
                     new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ")
                     if new_status in ["Pending", "Completed"]:
@@ -179,7 +172,7 @@ def update_chore(people):
                         break
                     else:
                         print("Invalid priority. Please enter 'Pending', or 'Completed'.")
-                # Ask for new priority with validation loop
+                
                 while True:
                     new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ")
                     if new_priority in ["High", "Medium", "Low", ""]:
@@ -188,7 +181,7 @@ def update_chore(people):
                         break
                     else:
                         print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-                chore.save()  # Updated in the database
+                chore.save()
                 print(f"Chore '{chore.task}' updated.")
             else:
                 print("Invalid selection.")
