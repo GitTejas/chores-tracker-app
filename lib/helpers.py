@@ -125,6 +125,7 @@ def add_chore(people):
         if user_input == ".":
             print("Returning to the previous menu.")
             return  # Exit function and return to the previous menu
+
         try:
             index = int(user_input) - 1
             if 0 <= index < len(people):
@@ -141,8 +142,9 @@ def add_chore(people):
                         print("Task cannot be all digits. Please enter a valid task.")
                     else:
                         break
+
                 while True:
-                    status = input("Enter the status (Pending or Completed) (or '.' to go back): ")
+                    status = input("Enter the status (Pending or Completed) (or '.' to go back): ").strip().capitalize()
                     if status == ".":
                         print("Returning to the previous menu.")
                         return  # Exit function and return to the previous menu
@@ -150,8 +152,9 @@ def add_chore(people):
                         break
                     else:
                         print("Invalid status. Please enter 'Pending' or 'Completed'.") 
+
                 while True:
-                    priority = input("Enter the priority (High, Medium, Low) (or '.' to go back): ")
+                    priority = input("Enter the priority (High, Medium, Low) (or '.' to go back): ").strip().capitalize()
                     if priority == ".":
                         print("Returning to the previous menu.")
                         return  # Exit function and return to the previous menu
@@ -159,6 +162,7 @@ def add_chore(people):
                         break
                     else:
                         print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
+
                 chore = Chore(task=task, status=status, priority=priority, person_id=person.id)
                 person.add_chore(chore)
                 print(f"Chore '{task}' added for {person.name}.")
@@ -167,6 +171,7 @@ def add_chore(people):
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
             print("Invalid input: Please enter a valid number.")
+
 
 def delete_chore(people):
     while True:
@@ -220,25 +225,31 @@ def update_chore(people):
                         chore_index = int(input("Enter the number of the chore to update: ")) - 1
                         if 0 <= chore_index < len(person.chores):
                             chore = person.chores[chore_index]
+
                             new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current): ").strip()
                             if new_task:
                                 chore.task = new_task
+
                             while True:
-                                new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ").strip()
-                                if new_status in ["Pending", "Completed", ""]:
-                                    if new_status:
-                                        chore.status = new_status
+                                new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ").strip().capitalize()
+                                if new_status == "":
+                                    new_status = chore.status
+                                if new_status in ["Pending", "Completed"]:
+                                    chore.status = new_status
                                     break
                                 else:
                                     print("Invalid status. Please enter 'Pending' or 'Completed'.")
+
                             while True:
-                                new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ").strip()
-                                if new_priority in ["High", "Medium", "Low", ""]:
-                                    if new_priority:
-                                        chore.priority = new_priority
+                                new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ").strip().capitalize()
+                                if new_priority == "":
+                                    new_priority = chore.priority
+                                if new_priority in ["High", "Medium", "Low"]:
+                                    chore.priority = new_priority
                                     break
                                 else:
                                     print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
+
                             chore.save()
                             print(f"Chore '{chore.task}' updated.")
                             break
@@ -251,6 +262,7 @@ def update_chore(people):
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a number.")
+
 
 def find_person_by_id(person_id):
     person = Person.find_by_id(person_id)

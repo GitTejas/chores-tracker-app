@@ -26,7 +26,9 @@ class Chore:
 
     @status.setter
     def status(self, status):
-        if isinstance(status, str) and status in {"Pending", "Completed"}:
+        # Convert status to uppercase for consistent comparison
+        status = status.strip().capitalize()
+        if status in {"Pending", "Completed"}:
             self._status = status
         else:
             raise ValueError("Status must be 'Pending' or 'Completed'")
@@ -36,10 +38,12 @@ class Chore:
         return self._priority
 
     @priority.setter
-    def priority(self, value):
-        if value not in ["High", "Medium", "Low"]:
+    def priority(self, priority):
+        # Convert priority to uppercase for consistent comparison
+        priority = priority.strip().capitalize()
+        if priority not in ["High", "Medium", "Low"]:
             raise ValueError("Priority must be one of: High, Medium, Low.")
-        self._priority = value
+        self._priority = priority
 
     @property
     def person_id(self):
