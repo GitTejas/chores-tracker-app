@@ -65,8 +65,6 @@ def delete_person(people):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-
-
 def update_person(people):
     list_people(people)
     while True:
@@ -222,8 +220,6 @@ def delete_chore(people):
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a number.")
-
-
 
 def update_chore(people):
     while True:
