@@ -8,7 +8,12 @@ def list_people(people):
 
 def add_person(people):
     while True:
-        name = input("Enter the person's name: ").strip()
+        # Prompt user for name with option to go back
+        name = input("Enter the person's name (or enter '.' to go back): ").strip()
+        if name == '.':
+            print("Returning to the previous menu.")
+            return  # Exit function and return to previous menu
+        
         if not name:
             print("Name cannot be empty. Please enter a valid name.")
             continue
@@ -19,26 +24,37 @@ def add_person(people):
             print("Name must be greater than 1 character and less than 15 characters. Please enter a valid name.")
             continue
         
-        while True:  
-            room = input("Enter the person's room: ").strip()
+        while True:
+            # Prompt user for room with option to go back
+            room = input("Enter the person's room (or enter '.' to go back): ").strip()
+            if room == '.':
+                print("Returning to the previous menu.")
+                return  # Exit function and return to previous menu
+            
             if not room:
                 print("Room cannot be empty. Please enter a valid room.")
             elif room.isdigit():
                 print("Room cannot be all digits. Please enter a valid room.")
             else:
                 break
-            
+        
         new_person = Person.create(name, room)
         new_person.save()
         people.append(new_person)
         print(f"Person '{name}' added.")
         break
 
+
 def delete_person(people):
     list_people(people)
     while True:
+        # Prompt user for index with option to go back
+        user_input = input("Enter the number of the person to delete (or '.' to go back): ").strip()
+        if user_input == '.':
+            print("Returning to the previous menu.")
+            return  # Exit function and return to previous menu
         try:
-            index = int(input("Enter the number of the person to delete: ")) - 1
+            index = int(user_input) - 1
             if 0 <= index < len(people):
                 deleted_person = people.pop(index)
                 deleted_person.delete()
@@ -50,15 +66,23 @@ def delete_person(people):
             print("Invalid input. Please enter a number.")
 
 
+
 def update_person(people):
     list_people(people)
     while True:
+        user_input = input("Enter the number of the person to update (or '.' to go back): ").strip()
+        if user_input == '.':
+            print("Returning to the previous menu.")
+            return  # Exit function and return to previous menu
         try:
-            index = int(input("Enter the number of the person to update: ")) - 1
+            index = int(user_input) - 1
             if 0 <= index < len(people):
                 person = people[index]
                 while True:
-                    new_name = input(f"Enter new name for {person.name} (leave blank to keep current): ").strip()
+                    new_name = input(f"Enter new name for {person.name} (leave blank to keep current, or '.' to go back): ").strip()
+                    if new_name == ".":
+                        print("Returning to the previous menu.")
+                        return  # Exit function and return to previous menu
                     if new_name == "":
                         new_name = person.name
                         break
@@ -71,7 +95,10 @@ def update_person(people):
                     person.name = new_name
                     break
                 while True:
-                    new_room = input(f"Enter new room for {person.room} (leave blank to keep current): ").strip()
+                    new_room = input(f"Enter new room for {person.room} (leave blank to keep current, or '.' to go back): ").strip()
+                    if new_room == ".":
+                        print("Returning to the previous menu.")
+                        return  # Exit function and return to previous menu
                     if new_room == "":
                         new_room = person.room
                         break
@@ -87,6 +114,7 @@ def update_person(people):
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a number.")
+
 
 
 def list_chores(people):
@@ -230,8 +258,12 @@ def find_chore_by_id(chore_id):
 
 def find_person_by_id():
     while True:
+        user_input = input("Enter the ID of the person to find (or '.' to go back): ").strip()
+        if user_input == ".":
+            print("Returning to the previous menu.")
+            return  # Exit function and return to previous menu
         try:
-            person_id = int(input("Enter the ID of the person to find: "))
+            person_id = int(user_input)
             person = Person.find_by_id(person_id)
             if person:
                 print(person)
@@ -244,8 +276,12 @@ def find_person_by_id():
 
 def find_chore_by_id():
     while True:
+        user_input = input("Enter the ID of the chore to find (or '.' to go back): ").strip()
+        if user_input == ".":
+            print("Returning to the previous menu.")
+            return  # Exit function and return to previous menu
         try:
-            chore_id = int(input("Enter the ID of the chore to find: "))
+            chore_id = int(user_input)
             chore = Chore.find_by_id(chore_id)
             if chore:
                 person = Person.find_by_id(chore.person_id)
@@ -258,3 +294,4 @@ def find_chore_by_id():
                 print(f"No chore found with ID '{chore_id}'.")
         except ValueError:
             print("Invalid ID. Please enter a valid integer.")
+
