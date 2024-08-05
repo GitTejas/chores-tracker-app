@@ -25,7 +25,7 @@ class Person:
 
     @room.setter
     def room(self, room):
-        if isinstance(room, str) and room.strip(): # room.strip() ensures that the string isn't just space
+        if isinstance(room, str) and room.strip():
             self._room = room
         else:
             raise ValueError("Room cannot be empty. Please enter a valid room.")
