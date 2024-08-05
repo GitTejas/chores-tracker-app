@@ -130,4 +130,4 @@ class Chore:
         return [cls.instance_from_db(row) for row in rows]
 
     def __str__(self):
-        return f"{self.task} - Status: {self.status} - Priority: {self.priority}"
+        return f"{self.task} | Status: {self.status} | Priority: {self.priority}"
