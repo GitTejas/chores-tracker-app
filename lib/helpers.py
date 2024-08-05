@@ -8,11 +8,10 @@ def list_people(people):
 
 def add_person(people):
     while True:
-        # Prompt user for name with option to go back
         name = input("Enter the person's name (or enter '.' to go back): ").strip()
         if name == '.':
             print("Returning to the previous menu.")
-            return  # Exit function and return to previous menu
+            return
         if not name:
             print("Name cannot be empty. Please enter a valid name.")
             continue
@@ -37,7 +36,9 @@ def add_person(people):
         new_person = Person.create(name, room)
         new_person.save()
         people.append(new_person)
+        print("***********************")
         print(f"Person '{name}' added.")
+        print("***********************")
         break
 
 def delete_person(people):
@@ -53,7 +54,9 @@ def delete_person(people):
             if 0 <= index < len(people):
                 deleted_person = people.pop(index)
                 deleted_person.delete()
+                print("***********************")
                 print(f"Person '{deleted_person.name}' deleted.")
+                print("***********************")
                 break
             else:
                 print("Invalid selection. Please enter a valid number.")
@@ -101,7 +104,9 @@ def update_person(people):
                     person.room = new_room
                     break
                 person.save()
+                print("***********************")
                 print(f"Person '{person.name}' updated.")
+                print("***********************")
                 break
             else:
                 print("Invalid selection. Please enter a valid number.")
