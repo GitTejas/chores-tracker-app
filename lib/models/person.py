@@ -25,10 +25,10 @@ class Person:
 
     @room.setter
     def room(self, room):
-        if isinstance(room, str) and len(room):
+        if isinstance(room, str) and room.strip(): # room.strip() ensures that the string isn't just space
             self._room = room
         else:
-            raise ValueError("Room must be a non-empty string")
+            raise ValueError("Room cannot be empty. Please enter a valid room.")
 
     @classmethod
     def create_table(cls):
