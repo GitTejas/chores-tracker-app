@@ -26,10 +26,10 @@ class Chore:
 
     @status.setter
     def status(self, status):
-        if isinstance(status, str):
+        if isinstance(status, str) and status in {"Pending", "Completed"}:
             self._status = status
         else:
-            raise ValueError("Status must be a string")
+            raise ValueError("Status must be 'Pending' or 'Completed'")
 
     @property
     def priority(self):
