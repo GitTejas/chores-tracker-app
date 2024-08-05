@@ -2,7 +2,6 @@ from models.chore import Chore
 from models.person import Person
 
 def list_people(people):
-    people = Person.get_all()
     for index, person in enumerate(people):
         print(f"{index + 1}. {person}")
 
