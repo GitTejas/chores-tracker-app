@@ -13,7 +13,6 @@ def add_person(people):
         if name == '.':
             print("Returning to the previous menu.")
             return  # Exit function and return to previous menu
-        
         if not name:
             print("Name cannot be empty. Please enter a valid name.")
             continue
@@ -23,27 +22,23 @@ def add_person(people):
         if len(name) <= 1 or len(name) >= 15:
             print("Name must be greater than 1 character and less than 15 characters. Please enter a valid name.")
             continue
-        
         while True:
             # Prompt user for room with option to go back
             room = input("Enter the person's room (or enter '.' to go back): ").strip()
             if room == '.':
                 print("Returning to the previous menu.")
                 return  # Exit function and return to previous menu
-            
             if not room:
                 print("Room cannot be empty. Please enter a valid room.")
             elif room.isdigit():
                 print("Room cannot be all digits. Please enter a valid room.")
             else:
                 break
-        
         new_person = Person.create(name, room)
         new_person.save()
         people.append(new_person)
         print(f"Person '{name}' added.")
         break
-
 
 def delete_person(people):
     list_people(people)
@@ -130,7 +125,6 @@ def add_chore(people):
         if user_input == ".":
             print("Returning to the previous menu.")
             return  # Exit function and return to the previous menu
-        
         try:
             index = int(user_input) - 1
             if 0 <= index < len(people):
@@ -147,7 +141,6 @@ def add_chore(people):
                         print("Task cannot be all digits. Please enter a valid task.")
                     else:
                         break
-                
                 while True:
                     status = input("Enter the status (Pending or Completed) (or '.' to go back): ")
                     if status == ".":
@@ -156,8 +149,7 @@ def add_chore(people):
                     if status in ["Pending", "Completed"]:
                         break
                     else:
-                        print("Invalid status. Please enter 'Pending' or 'Completed'.")
-                
+                        print("Invalid status. Please enter 'Pending' or 'Completed'.") 
                 while True:
                     priority = input("Enter the priority (High, Medium, Low) (or '.' to go back): ")
                     if priority == ".":
@@ -167,7 +159,6 @@ def add_chore(people):
                         break
                     else:
                         print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-                
                 chore = Chore(task=task, status=status, priority=priority, person_id=person.id)
                 person.add_chore(chore)
                 print(f"Chore '{task}' added for {person.name}.")
@@ -177,16 +168,13 @@ def add_chore(people):
         except ValueError:
             print("Invalid input: Please enter a valid number.")
 
-
 def delete_chore(people):
     while True:
         list_people(people)
         user_input = input("Enter the number of the person to delete a chore for (or '.' to go back): ").strip()
-        
         if user_input == ".":
             print("Returning to the previous menu.")
             return  # Exit function and return to the previous menu
-
         try:
             person_index = int(user_input) - 1
             if 0 <= person_index < len(people):
@@ -195,14 +183,11 @@ def delete_chore(people):
                     # Display the chores
                     for index, chore in enumerate(person.chores):
                         print(f"  {index + 1}. {chore}")
-
                     # Prompt for chore selection
                     user_input = input("Enter the number of the chore to delete (or '.' to go back): ").strip()
-                    
                     if user_input == ".":
                         print("Returning to the previous menu.")
                         break  # Exit inner loop to go back to the person selection
-                    
                     try:
                         chore_index = int(user_input) - 1
                         if 0 <= chore_index < len(person.chores):
@@ -235,11 +220,9 @@ def update_chore(people):
                         chore_index = int(input("Enter the number of the chore to update: ")) - 1
                         if 0 <= chore_index < len(person.chores):
                             chore = person.chores[chore_index]
-
                             new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current): ").strip()
                             if new_task:
                                 chore.task = new_task
-                            
                             while True:
                                 new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current): ").strip()
                                 if new_status in ["Pending", "Completed", ""]:
@@ -248,7 +231,6 @@ def update_chore(people):
                                     break
                                 else:
                                     print("Invalid status. Please enter 'Pending' or 'Completed'.")
-
                             while True:
                                 new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current): ").strip()
                                 if new_priority in ["High", "Medium", "Low", ""]:
@@ -257,7 +239,6 @@ def update_chore(people):
                                     break
                                 else:
                                     print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-
                             chore.save()
                             print(f"Chore '{chore.task}' updated.")
                             break
