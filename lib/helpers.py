@@ -294,7 +294,9 @@ def find_person_by_id():
             person_id = int(user_input)
             person = Person.find_by_id(person_id)
             if person:
+                print("***********************")
                 print(person)
+                print("***********************")
                 return person
             else:
                 print(f"No person found with ID '{person_id}'.")
@@ -314,7 +316,9 @@ def find_chore_by_id():
             if chore:
                 person = Person.find_by_id(chore.person_id)
                 if person:
+                    print("***********************")
                     print(f"Chore '{chore.task}' found for {person.name}.")
+                    print("***********************")
                 else:
                     print(f"Chore '{chore.task}' found, but no person associated with this chore.")
                 return chore

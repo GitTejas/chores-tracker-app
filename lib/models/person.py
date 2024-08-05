@@ -102,18 +102,18 @@ class Person:
         else:
             print("Invalid index.")
 
-    def update_chore(self, chore_index, task=None, status=None, priority=None):
-        if 0 <= chore_index < len(self.chores):
-            chore = self.chores[chore_index]
-            if task:
-                chore.task = task
-            if status:
-                chore.status = status
-            if priority:
-                chore.priority = priority
-            print(f"Chore {chore.task} updated successfully.")
-        else:
-            print("Invalid chore index. Please try again.")
+    # def update_chore(self, chore_index, task=None, status=None, priority=None):
+    #     if 0 <= chore_index < len(self.chores):
+    #         chore = self.chores[chore_index]
+    #         if task:
+    #             chore.task = task
+    #         if status:
+    #             chore.status = status
+    #         if priority:
+    #             chore.priority = priority
+    #         print(f"Chore {chore.task} updated successfully.")
+    #     else:
+    #         print("Invalid chore index. Please try again.")
 
     def __str__(self):
         return f"{self.name} (Room: {self.room})"
