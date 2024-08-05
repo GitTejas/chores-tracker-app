@@ -107,8 +107,8 @@ def add_chore(people):
                 person = people[index]
                 while True:
                     task = input("Enter the task: ").strip()
-                    if len(task) < 2 or len(task) > 22:
-                        print("Task must be at least 2 characters and less than 22 characters long.")
+                    if len(task) < 2 or len(task) > 25:
+                        print("Task must be at least 2 characters and less than 25 characters long.")
                     elif task.isdigit():
                         print("Task cannot be all digits. Please enter a valid task.")
                     else:

@@ -15,10 +15,10 @@ class Chore:
 
     @task.setter
     def task(self, task):
-        if isinstance(task, str) and 2 <= len(task) <= 22:
+        if isinstance(task, str) and 2 <= len(task) <= 25:
             self._task = task
         else:
-            raise ValueError("Task must be at least 2 characters and less than 22 characters long.")
+            raise ValueError("Task must be at least 2 characters and less than 25 characters long.")
 
     @property
     def status(self):
