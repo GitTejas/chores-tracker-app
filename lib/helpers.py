@@ -22,11 +22,10 @@ def add_person(people):
             print("Name must be greater than 1 character and less than 15 characters. Please enter a valid name.")
             continue
         while True:
-            # Prompt user for room with option to go back
             room = input("Enter the person's room (or enter '.' to go back): ").strip()
             if room == '.':
                 print("Returning to the previous menu.")
-                return  # Exit function and return to previous menu
+                return
             if not room:
                 print("Room cannot be empty. Please enter a valid room.")
             elif room.isdigit():
@@ -44,11 +43,10 @@ def add_person(people):
 def delete_person(people):
     list_people(people)
     while True:
-        # Prompt user for index with option to go back
         user_input = input("Enter the number of the person to delete (or '.' to go back): ").strip()
         if user_input == '.':
             print("Returning to the previous menu.")
-            return  # Exit function and return to previous menu
+            return
         try:
             index = int(user_input) - 1
             if 0 <= index < len(people):
@@ -69,7 +67,7 @@ def update_person(people):
         user_input = input("Enter the number of the person to update (or '.' to go back): ").strip()
         if user_input == '.':
             print("Returning to the previous menu.")
-            return  # Exit function and return to previous menu
+            return
         try:
             index = int(user_input) - 1
             if 0 <= index < len(people):
@@ -78,7 +76,7 @@ def update_person(people):
                     new_name = input(f"Enter new name for {person.name} (leave blank to keep current, or '.' to go back): ").strip()
                     if new_name == ".":
                         print("Returning to the previous menu.")
-                        return  # Exit function and return to previous menu
+                        return
                     if new_name == "":
                         new_name = person.name
                         break
@@ -94,7 +92,7 @@ def update_person(people):
                     new_room = input(f"Enter new room for {person.room} (leave blank to keep current, or '.' to go back): ").strip()
                     if new_room == ".":
                         print("Returning to the previous menu.")
-                        return  # Exit function and return to previous menu
+                        return
                     if new_room == "":
                         new_room = person.room
                         break
@@ -129,7 +127,7 @@ def add_chore(people):
         
         if user_input == ".":
             print("Returning to the previous menu.")
-            return  # Exit function and return to the previous menu
+            return
 
         try:
             index = int(user_input) - 1
@@ -140,7 +138,7 @@ def add_chore(people):
                     task = input("Enter the task (or '.' to go back): ").strip()
                     if task == ".":
                         print("Returning to the previous menu.")
-                        return  # Exit function and return to the previous menu
+                        return
                     if len(task) < 2 or len(task) > 25:
                         print("Task must be at least 2 characters and less than 25 characters long.")
                     elif task.isdigit():
@@ -152,7 +150,7 @@ def add_chore(people):
                     status = input("Enter the status (Pending or Completed) (or '.' to go back): ").strip().capitalize()
                     if status == ".":
                         print("Returning to the previous menu.")
-                        return  # Exit function and return to the previous menu
+                        return
                     if status in ["Pending", "Completed"]:
                         break
                     else:
@@ -162,7 +160,7 @@ def add_chore(people):
                     priority = input("Enter the priority (High, Medium, Low) (or '.' to go back): ").strip().capitalize()
                     if priority == ".":
                         print("Returning to the previous menu.")
-                        return  # Exit function and return to the previous menu
+                        return
                     if priority in ["High", "Medium", "Low"]:
                         break
                     else:
@@ -185,20 +183,18 @@ def delete_chore(people):
         user_input = input("Enter the number of the person to delete a chore for (or '.' to go back): ").strip()
         if user_input == ".":
             print("Returning to the previous menu.")
-            return  # Exit function and return to the previous menu
+            return
         try:
             person_index = int(user_input) - 1
             if 0 <= person_index < len(people):
                 person = people[person_index]
                 while True:
-                    # Display the chores
                     for index, chore in enumerate(person.chores):
                         print(f"  {index + 1}. {chore}")
-                    # Prompt for chore selection
                     user_input = input("Enter the number of the chore to delete (or '.' to go back): ").strip()
                     if user_input == ".":
                         print("Returning to the previous menu.")
-                        break  # Exit inner loop to go back to the person selection
+                        break
                     try:
                         chore_index = int(user_input) - 1
                         if 0 <= chore_index < len(person.chores):
@@ -212,7 +208,6 @@ def delete_chore(people):
                             print("Invalid selection. Please enter a valid number.")
                     except ValueError:
                         print("Invalid input. Please enter a number.")
-                # Break the outer loop to return to the main menu after handling chores
                 break
             else:
                 print("Invalid selection. Please enter a valid number.")
@@ -295,7 +290,7 @@ def find_person_by_id():
         user_input = input("Enter the ID of the person to find (or '.' to go back): ").strip()
         if user_input == ".":
             print("Returning to the previous menu.")
-            return  # Exit function and return to previous menu
+            return
         try:
             person_id = int(user_input)
             person = Person.find_by_id(person_id)
@@ -313,7 +308,7 @@ def find_chore_by_id():
         user_input = input("Enter the ID of the chore to find (or '.' to go back): ").strip()
         if user_input == ".":
             print("Returning to the previous menu.")
-            return  # Exit function and return to previous menu
+            return
         try:
             chore_id = int(user_input)
             chore = Chore.find_by_id(chore_id)
