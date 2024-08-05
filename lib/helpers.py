@@ -165,15 +165,30 @@ def add_chore(people):
 def delete_chore(people):
     while True:
         list_people(people)
+        user_input = input("Enter the number of the person to delete a chore for (or '.' to go back): ").strip()
+        
+        if user_input == ".":
+            print("Returning to the previous menu.")
+            return  # Exit function and return to the previous menu
+
         try:
-            person_index = int(input("Enter the number of the person to delete a chore for: ")) - 1
+            person_index = int(user_input) - 1
             if 0 <= person_index < len(people):
                 person = people[person_index]
                 while True:
+                    # Display the chores
                     for index, chore in enumerate(person.chores):
                         print(f"  {index + 1}. {chore}")
+
+                    # Prompt for chore selection
+                    user_input = input("Enter the number of the chore to delete (or '.' to go back): ").strip()
+                    
+                    if user_input == ".":
+                        print("Returning to the previous menu.")
+                        break  # Exit inner loop to go back to the person selection
+                    
                     try:
-                        chore_index = int(input("Enter the number of the chore to delete: ")) - 1
+                        chore_index = int(user_input) - 1
                         if 0 <= chore_index < len(person.chores):
                             deleted_chore = person.chores.pop(chore_index)
                             deleted_chore.delete()
@@ -183,11 +198,13 @@ def delete_chore(people):
                             print("Invalid selection. Please enter a valid number.")
                     except ValueError:
                         print("Invalid input. Please enter a number.")
+                # Break the outer loop to return to the main menu after handling chores
                 break
             else:
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a number.")
+
 
 
 def update_chore(people):
