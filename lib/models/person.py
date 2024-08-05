@@ -14,10 +14,10 @@ class Person:
 
     @name.setter
     def name(self, name):
-        if isinstance(name, str) and len(name):
+        if isinstance(name, str) and 1 < len(name) < 15:
             self._name = name
         else:
-            raise ValueError("Name must be a non-empty string")
+            raise ValueError("Name must be greater than 1 character and less than 15 characters. Please enter a valid name.")
         
     @property
     def room(self):
