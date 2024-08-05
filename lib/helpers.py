@@ -170,6 +170,7 @@ def add_chore(people):
 
                 chore = Chore(task=task, status=status, priority=priority, person_id=person.id)
                 person.add_chore(chore)
+                print("***********************")
                 print(f"Chore '{task}' added for {person.name}.")
                 break
             else:
@@ -203,7 +204,9 @@ def delete_chore(people):
                         if 0 <= chore_index < len(person.chores):
                             deleted_chore = person.chores.pop(chore_index)
                             deleted_chore.delete()
+                            print("***********************")
                             print(f"Chore '{deleted_chore.task}' deleted.")
+                            print("***********************")
                             break
                         else:
                             print("Invalid selection. Please enter a valid number.")
@@ -256,7 +259,9 @@ def update_chore(people):
                                     print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
 
                             chore.save()
+                            print("***********************")
                             print(f"Chore '{chore.task}' updated.")
+                            print("***********************")
                             break
                         else:
                             print("Invalid selection. Please enter a valid number.")
