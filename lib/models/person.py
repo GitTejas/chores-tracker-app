@@ -99,8 +99,6 @@ class Person:
     def remove_chore(self, index):
         if 0 <= index < len(self.chores):
             self.chores.pop(index)
-        else:
-            print("Invalid index.")
 
     def __str__(self):
         return f"{self.name} (Room: {self.room})"
