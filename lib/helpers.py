@@ -218,8 +218,7 @@ def update_chore(people):
         list_people(people)
         person_input = input("Enter the number of the person to update a chore for (or '.' to go back): ").strip()
         if person_input == ".":
-            return  # Exit the function to return to the main menu
-
+            return 
         try:
             person_index = int(person_input) - 1
             if 0 <= person_index < len(people):
@@ -229,25 +228,20 @@ def update_chore(people):
                         print(f"  {index + 1}. {chore}")
                     chore_input = input("Enter the number of the chore to update (or '.' to go back): ").strip()
                     if chore_input == ".":
-                        break  # Go back to the person selection
-
+                        break
                     try:
                         chore_index = int(chore_input) - 1
                         if 0 <= chore_index < len(person.chores):
                             chore = person.chores[chore_index]
-
-                            # Get and validate new task input
                             new_task = input(f"Enter new task for '{chore.task}' (leave blank to keep current, or '.' to go back): ").strip()
                             if new_task == ".":
-                                break  # Go back to the chore selection
+                                break  
                             if new_task:
                                 chore.task = new_task
-
-                            # Get and validate new status input
                             while True:
                                 new_status = input(f"Enter new status for '{chore.status}' (leave blank to keep current, or '.' to go back): ").strip().capitalize()
                                 if new_status == ".":
-                                    break  # Go back to the chore selection
+                                    break
                                 if new_status == "":
                                     new_status = chore.status
                                 if new_status in ["Pending", "Completed"]:
@@ -255,12 +249,10 @@ def update_chore(people):
                                     break
                                 else:
                                     print("Invalid status. Please enter 'Pending' or 'Completed'.")
-
-                            # Get and validate new priority input
                             while True:
                                 new_priority = input(f"Enter new priority for '{chore.priority}' (leave blank to keep current, or '.' to go back): ").strip().capitalize()
                                 if new_priority == ".":
-                                    break  # Go back to the chore selection
+                                    break
                                 if new_priority == "":
                                     new_priority = chore.priority
                                 if new_priority in ["High", "Medium", "Low"]:
@@ -268,7 +260,6 @@ def update_chore(people):
                                     break
                                 else:
                                     print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-
                             chore.save()
                             print("***********************")
                             print(f"Chore '{chore.task}' updated.")
@@ -283,8 +274,6 @@ def update_chore(people):
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a number.")
-
-
 
 def find_person_by_id(person_id):
     person = Person.find_by_id(person_id)
