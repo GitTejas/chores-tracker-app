@@ -92,7 +92,7 @@ class Person:
         return cls.instance_from_db(row) if row else None
 
     def add_chore(self, chore):
-        chore.person_id = self.id  # Set the person_id to the current person's id
+        chore.person_id = self.id
         self.chores.append(chore)
         chore.save()
 
