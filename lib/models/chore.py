@@ -125,8 +125,6 @@ class Chore:
         task = task.lower()
         sql = "SELECT * FROM chore WHERE LOWER(task) = ?"
         row = CURSOR.execute(sql, (task,)).fetchone()
-        import pdb; pdb.set_trace()
-
         return cls.instance_from_db(row) if row else None
     
     def __str__(self):
@@ -137,7 +135,6 @@ class Chore:
     #     priority = priority.strip().capitalize()
     #     sql = "SELECT * FROM chore WHERE priority = ?"
     #     rows = CURSOR.execute(sql, (priority,)).fetchall()
-    #     breakpoint
     #     return [cls.instance_from_db(row) for row in rows]
     
     # def test_priortiy():
