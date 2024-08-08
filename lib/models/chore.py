@@ -130,6 +130,8 @@ class Chore:
         sql = "SELECT * FROM chore WHERE person_id = ?"
         rows = CURSOR.execute(sql, (person_id,)).fetchall()
         return [cls.instance_from_db(row) for row in rows]
-
+    
+    
     def __str__(self):
         return f"{self.task} | Status: {self.status} | Priority: {self.priority}"
+    

@@ -90,6 +90,21 @@ class Person:
         sql = "SELECT * FROM person WHERE id = ?"
         row = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_db(row) if row else None
+    
+    @classmethod
+    def find_by_name(cls, name):
+        sql = "SELECT * FROM person WHERE name = ?"
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+
+    def find_person_by_name(people):
+        name = input("Enter the name of the person to find: ")
+        found_people = [person for person in people if person.name.lower() == name.lower()]
+        if found_people:
+            for person in found_people:
+                print(person)
+        else:
+            print(f"No person found with the name '{name}'.")
 
     def add_chore(self, chore):
         chore.person_id = self.id

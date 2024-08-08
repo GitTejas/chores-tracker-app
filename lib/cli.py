@@ -8,8 +8,8 @@ from helpers import (
     add_chore,
     delete_chore,
     update_chore,
-    find_chore_by_id,
-    find_person_by_id
+    find_person_by_name,
+    find_chore_by_task
 )
 
 def main_page():
@@ -36,7 +36,7 @@ def view_people():
         print("*                  Press 1.  Add New Person                         *")
         print("*                  Press 2.  Delete a Person                        *")
         print("*                  Press 3.  Update a Person                        *")
-        print("*                  Press 4.  Find a Person by ID                    *")
+        print("*                  Press 4.  Find a Person by Name                  *")
         print("*                  Press 5.  Manage Chores                          *")
         print("*                  Press 6.  Back to Main Menu                      *")
         print("---------------------------------------------------------------------")
@@ -49,7 +49,7 @@ def view_people():
         elif choice == '3':
             update_person(people)
         elif choice == '4':
-            find_person_by_id()
+            find_person_by_name(people)
         elif choice == '5':
             manage_chores()  
         elif choice == '6':
@@ -68,7 +68,7 @@ def manage_chores():
         print("*                  Press 2.  Add New Chore                          *")
         print("*                  Press 3.  Delete a Chore                         *")
         print("*                  Press 4.  Update a Chore                         *")
-        print("*                  Press 5.  Find a Chore by ID                     *")
+        print("*                  Press 5.  Find a Chore by Task                   *")
         print("*                  Press 6.  View People                            *")
         print("*                  Press 7.  Back to Main Menu                      *")
         print("---------------------------------------------------------------------")
@@ -83,7 +83,7 @@ def manage_chores():
         elif choice == '4':
             update_chore(people)
         elif choice == '5':
-            find_chore_by_id()
+            find_chore_by_task(people)
         elif choice == '6':
             view_people() 
         elif choice == '7':

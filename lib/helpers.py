@@ -175,7 +175,6 @@ def add_chore(people):
         except ValueError:
             print("Invalid input: Please enter a valid number.")
 
-
 def delete_chore(people):
     while True:
         list_people(people)
@@ -275,62 +274,97 @@ def update_chore(people):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-def find_person_by_id(person_id):
-    person = Person.find_by_id(person_id)
-    if person:
-        return person
-    else:
-        print("Person not found.")
-        return None
-
-def find_chore_by_id(chore_id):
-    chore = Chore.find_by_id(chore_id)
-    if chore:
-        return chore
-    else:
-        print("Chore not found.")
-        return None
-
-def find_person_by_id():
+def find_person_by_name(people):
     while True:
-        user_input = input("Enter the ID of the person to find (or '.' to go back): ").strip()
-        if user_input == ".":
-            print("Returning to the previous menu.")
-            return
-        try:
-            person_id = int(user_input)
-            person = Person.find_by_id(person_id)
-            if person:
-                print("***********************")
-                print(person)
-                print("***********************")
-                return person
+        name = input("Enter the name of the person to find (must be greater than 1 character): ")
+        
+        if len(name) > 1:
+            found_people = [person for person in people if person.name.lower() == name.lower()]
+            if found_people:
+                for person in found_people:
+                    print("***********************")
+                    print(person)
+                    print("***********************")
             else:
-                print(f"No person found with ID '{person_id}'.")
-        except ValueError:
-            print("Invalid ID. Please enter a valid integer.")
+                print(f"No person found with the name '{name}'.")
+            break
+        else:
+            print("Name must be greater than 1 character. Please try again.")
 
-
-def find_chore_by_id():
+def find_chore_by_task(people):
     while True:
-        user_input = input("Enter the ID of the chore to find (or '.' to go back): ").strip()
-        if user_input == ".":
-            print("Returning to the previous menu.")
-            return
-        try:
-            chore_id = int(user_input)
-            chore = Chore.find_by_id(chore_id)
-            if chore:
-                person = Person.find_by_id(chore.person_id)
-                if person:
+        task = input("Enter the task of the chore to find (must be 2 or more characters): ")
+        if len(task) >= 2:
+            found_chores = []
+            for person in people:
+                for chore in person.chores:
+                    if chore.task.lower() == task.lower():
+                        found_chores.append((person, chore))
+            if found_chores:
+                for person, chore in found_chores:
                     print("***********************")
                     print(f"Chore '{chore.task}' found for {person.name}.")
                     print("***********************")
-                else:
-                    print(f"Chore '{chore.task}' found, but no person associated with this chore.")
-                return chore
             else:
-                print(f"No chore found with ID '{chore_id}'.")
-        except ValueError:
-            print("Invalid ID. Please enter a valid integer.")
+                print(f"No chore found with the task '{task}'.")
+            break
+        else:
+            print("Task must be 2 or more characters. Please try again.")
 
+# def find_person_by_id(person_id):
+    # person = Person.find_by_id(person_id)
+    # if person:
+    #     return person
+    # else:
+    #     print("Person not found.")
+    #     return None
+
+# def find_chore_by_id(chore_id):
+    # chore = Chore.find_by_id(chore_id)
+    # if chore:
+    #     return chore
+    # else:
+    #     print("Chore not found.")
+    #     return None
+
+# def find_chore_by_id():
+#     while True:
+#         user_input = input("Enter the ID of the chore to find (or '.' to go back): ").strip()
+#         if user_input == ".":
+#             print("Returning to the previous menu.")
+#             return
+#         try:
+#             chore_id = int(user_input)
+#             chore = Chore.find_by_id(chore_id)
+#             if chore:
+#                 person = Person.find_by_id(chore.person_id)
+#                 if person:
+#                     print("***********************")
+#                     print(f"Chore '{chore.task}' found for {person.name}.")
+#                     print("***********************")
+#                 else:
+#                     print(f"Chore '{chore.task}' found, but no person associated with this chore.")
+#                 return chore
+#             else:
+#                 print(f"No chore found with ID '{chore_id}'.")
+#         except ValueError:
+#             print("Invalid ID. Please enter a valid integer.")
+
+# def find_person_by_id():
+    # while True:
+    #     user_input = input("Enter the ID of the person to find (or '.' to go back): ").strip()
+    #     if user_input == ".":
+    #         print("Returning to the previous menu.")
+    #         return
+    #     try:
+    #         person_id = int(user_input)
+    #         person = Person.find_by_id(person_id)
+    #         if person:
+    #             print("***********************")
+    #             print(person)
+    #             print("***********************")
+    #             return person
+    #         else:
+    #             print(f"No person found with ID '{person_id}'.")
+    #     except ValueError:
+    #         print("Invalid ID. Please enter a valid integer.")
