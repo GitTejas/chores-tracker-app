@@ -129,6 +129,41 @@ class Chore:
     def __str__(self):
         return f"{self.task} | Status: {self.status} | Priority: {self.priority}"
     
+
+    # @classmethod
+    # def find_by_priority(cls, priority):
+    #     priority = priority.strip().capitalize()
+    #     sql = "SELECT * FROM chore WHERE priority = ?"
+    #     rows = CURSOR.execute(sql, (priority,)).fetchall()
+    #     return [cls.instance_from_db(row) for row in rows]
+    
+    # def test_priortiy():
+    #     Chore.drop_table()
+    #     Chore.create_table()
+    #     Chore.create(task="Buy groceries", status="Pending", priority="High", person_id=1)
+    #     Chore.create(task="Clean the house", status="Completed", priority="Medium", person_id=1)
+    #     Chore.create(task="Do laundry", status="Pending", priority="Low", person_id=2)
+
+    #     high = Chore.find_by_priority("High")
+    #     medium = Chore.find_by_priority("Medium")
+    #     low = Chore.find_by_priority("Low")
+
+    #     print("High Priority Chores:")
+    #     for chore in high:
+    #         print(chore)
+        
+    #     print("Medium Chores:")
+    #     for chore in medium:
+    #         print(chore)
+
+    #     Chore.drop_table()
+
+    # test_priortiy()
+    
+
+
+
+    
     # @classmethod
     # def find_by_id(cls, id):
     #     sql = "SELECT * FROM chore WHERE id = ?"
