@@ -118,18 +118,24 @@ class Chore:
         sql = "SELECT * FROM chore"
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
-
+    
     @classmethod
-    def find_by_id(cls, id):
-        sql = "SELECT * FROM chore WHERE id = ?"
-        row = CURSOR.execute(sql, (id,)).fetchone()
+    def find_by_task(cls, task):
+        sql = "SELECT * FROM chore WHERE task = ?"
+        row = CURSOR.execute(sql, (task,)).fetchone()
         return cls.instance_from_db(row) if row else None
 
-    @classmethod
-    def find_by_person_id(cls, person_id):
-        sql = "SELECT * FROM chore WHERE person_id = ?"
-        rows = CURSOR.execute(sql, (person_id,)).fetchall()
-        return [cls.instance_from_db(row) for row in rows]
+    # @classmethod
+    # def find_by_id(cls, id):
+    #     sql = "SELECT * FROM chore WHERE id = ?"
+    #     row = CURSOR.execute(sql, (id,)).fetchone()
+    #     return cls.instance_from_db(row) if row else None
+
+    # @classmethod
+    # def find_by_person_id(cls, person_id):
+    #     sql = "SELECT * FROM chore WHERE person_id = ?"
+    #     rows = CURSOR.execute(sql, (person_id,)).fetchall()
+    #     return [cls.instance_from_db(row) for row in rows]
     
     
     def __str__(self):
