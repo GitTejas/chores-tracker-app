@@ -130,12 +130,13 @@ class Chore:
         return f"{self.task} | Status: {self.status} | Priority: {self.priority}"
     
 
-    # @classmethod
-    # def find_by_priority(cls, priority):
-    #     priority = priority.strip().capitalize()
-    #     sql = "SELECT * FROM chore WHERE priority = ?"
-    #     rows = CURSOR.execute(sql, (priority,)).fetchall()
-    #     return [cls.instance_from_db(row) for row in rows]
+    @classmethod
+    def find_by_priority(cls, priority):
+        priority = priority.strip().capitalize()
+        sql = "SELECT * FROM chore WHERE priority = ?"
+        rows = CURSOR.execute(sql, (priority,)).fetchall()
+        breakpoint
+        return [cls.instance_from_db(row) for row in rows]
     
     # def test_priortiy():
     #     Chore.drop_table()
