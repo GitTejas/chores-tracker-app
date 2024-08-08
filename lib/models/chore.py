@@ -121,10 +121,15 @@ class Chore:
     
     @classmethod
     def find_by_task(cls, task):
-        sql = "SELECT * FROM chore WHERE task = ?"
+        # Convert the task to lowercase for case-insensitive comparison
+        task = task.lower()
+        sql = "SELECT * FROM chore WHERE LOWER(task) = ?"
         row = CURSOR.execute(sql, (task,)).fetchone()
         return cls.instance_from_db(row) if row else None
-
+    
+    def __str__(self):
+        return f"{self.task} | Status: {self.status} | Priority: {self.priority}"
+    
     # @classmethod
     # def find_by_id(cls, id):
     #     sql = "SELECT * FROM chore WHERE id = ?"
@@ -136,8 +141,3 @@ class Chore:
     #     sql = "SELECT * FROM chore WHERE person_id = ?"
     #     rows = CURSOR.execute(sql, (person_id,)).fetchall()
     #     return [cls.instance_from_db(row) for row in rows]
-    
-    
-    def __str__(self):
-        return f"{self.task} | Status: {self.status} | Priority: {self.priority}"
-    

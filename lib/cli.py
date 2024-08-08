@@ -49,7 +49,7 @@ def view_people():
         elif choice == '3':
             update_person(people)
         elif choice == '4':
-            find_person_by_name(people)
+            find_person_by_name()
         elif choice == '5':
             manage_chores()  
         elif choice == '6':
@@ -83,7 +83,7 @@ def manage_chores():
         elif choice == '4':
             update_chore(people)
         elif choice == '5':
-            find_chore_by_task(people)
+            find_chore_by_task()
         elif choice == '6':
             view_people() 
         elif choice == '7':

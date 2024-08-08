@@ -274,42 +274,39 @@ def update_chore(people):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-def find_person_by_name(people):
+
+def find_person_by_name():
     while True:
         name = input("Enter the name of the person to find (must be greater than 1 character): ")
         
         if len(name) > 1:
-            found_people = [person for person in people if person.name.lower() == name.lower()]
-            if found_people:
-                for person in found_people:
-                    print("***********************")
-                    print(person)
-                    print("***********************")
+            # Call the class method to find the person by name
+            found_person = Person.find_by_name(name)
+            if found_person:
+                print("***********************")
+                print(found_person)
+                print("***********************")
             else:
                 print(f"No person found with the name '{name}'.")
             break
         else:
             print("Name must be greater than 1 character. Please try again.")
 
-def find_chore_by_task(people):
+def find_chore_by_task():
     while True:
-        task = input("Enter the task of the chore to find (must be 2 or more characters): ")
-        if len(task) >= 2:
-            found_chores = []
-            for person in people:
-                for chore in person.chores:
-                    if chore.task.lower() == task.lower():
-                        found_chores.append((person, chore))
-            if found_chores:
-                for person, chore in found_chores:
-                    print("***********************")
-                    print(f"Chore '{chore.task}' found for {person.name}.")
-                    print("***********************")
+        task = input("Enter the task description to find (must be greater than 1 character): ")
+        
+        if len(task) > 1:
+            found_chore = Chore.find_by_task(task)
+            if found_chore:
+                print("***********************")
+                print(found_chore)
+                print("***********************")
             else:
                 print(f"No chore found with the task '{task}'.")
             break
         else:
-            print("Task must be 2 or more characters. Please try again.")
+            print("Task description must be greater than 1 character. Please try again.")
 
 # def find_person_by_id(person_id):
     # person = Person.find_by_id(person_id)
