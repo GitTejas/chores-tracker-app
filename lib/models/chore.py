@@ -121,7 +121,6 @@ class Chore:
     
     @classmethod
     def find_by_task(cls, task):
-        # Convert the task to lowercase for case-insensitive comparison
         task = task.lower()
         sql = "SELECT * FROM chore WHERE LOWER(task) = ?"
         row = CURSOR.execute(sql, (task,)).fetchone()

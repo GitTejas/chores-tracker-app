@@ -87,6 +87,7 @@ def update_person(people):
                         continue
                     person.name = new_name
                     break
+
                 while True:
                     new_room = input(f"Enter new room for {person.room} (leave blank to keep current, or '.' to go back): ").strip()
                     if new_room == ".":
@@ -100,7 +101,9 @@ def update_person(people):
                         continue
                     person.room = new_room
                     break
-                person.save()
+
+                person.update()
+
                 print("***********************")
                 print(f"Person '{person.name}' updated.")
                 print("***********************")
@@ -259,7 +262,8 @@ def update_chore(people):
                                     break
                                 else:
                                     print("Invalid priority. Please enter 'High', 'Medium', or 'Low'.")
-                            chore.save()
+                            # Call the update method to save changes to the database
+                            chore.update()
                             print("***********************")
                             print(f"Chore '{chore.task}' updated.")
                             print("***********************")
