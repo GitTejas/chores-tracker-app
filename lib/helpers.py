@@ -278,7 +278,6 @@ def update_chore(people):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-
 def find_person_by_name():
     while True:
         name = input("Enter the name of the person to find (must be greater than 1 character): ")
