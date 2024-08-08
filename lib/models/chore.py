@@ -1,5 +1,4 @@
 from models.__init__ import CONN, CURSOR
-# from __init__ import CONN, CURSOR
 
 class Chore:
 
