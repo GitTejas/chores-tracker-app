@@ -125,6 +125,3 @@ class Chore:
         sql = "SELECT * FROM chore WHERE LOWER(task) = ?"
         row = CURSOR.execute(sql, (task,)).fetchone()
         return cls.instance_from_db(row) if row else None
-    
-    # def __str__(self):
-    #     return f"{self.task} | Status: {self.status} | Priority: {self.priority}"
