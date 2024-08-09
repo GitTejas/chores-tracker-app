@@ -129,7 +129,6 @@ class Chore:
     def __str__(self):
         return f"{self.task} | Status: {self.status} | Priority: {self.priority}"
     
-
 #     @classmethod
 #     def find_by_priority(cls, priority):
 #         priority = priority.strip().capitalize()

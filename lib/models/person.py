@@ -92,6 +92,12 @@ class Person:
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
     
+    @classmethod
+    def find_by_id(cls, id):
+        sql = "SELECT * FROM person WHERE id = ?"
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+
     def add_chore(self, chore):
         chore.person_id = self.id
         self.chores.append(chore)
@@ -104,12 +110,6 @@ class Person:
     def __str__(self):
         return f"{self.name} (Room: {self.room})"
     
-
-    # @classmethod
-    # def find_by_id(cls, id):
-    #     sql = "SELECT * FROM person WHERE id = ?"
-    #     row = CURSOR.execute(sql, (id,)).fetchone()
-    #     return cls.instance_from_db(row) if row else None
 
     # def find_person_by_name(people):
     #     name = input("Enter the name of the person to find: ")

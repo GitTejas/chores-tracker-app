@@ -297,19 +297,23 @@ def find_person_by_name():
 
 def find_chore_by_task():
     while True:
-        task = input("Enter the task description to find (must be greater than 1 character): ")
+        task = input("Enter the task description to find (must be greater than 1 character): ").strip()
         
         if len(task) > 1:
             found_chore = Chore.find_by_task(task)
             if found_chore:
+                # Assuming the Chore instance has a person_id attribute
+                person = Person.find_by_id(found_chore.person_id)
                 print("***********************")
-                print(found_chore)
+                print(f"Chore: {found_chore}")
+                print(f"Assigned to: {person.name} (Room: {person.room})")
                 print("***********************")
+                return found_chore, person
             else:
                 print(f"No chore found with the task '{task}'.")
-            break
         else:
             print("Task description must be greater than 1 character. Please try again.")
+
 
 # def find_person_by_id(person_id):
     # person = Person.find_by_id(person_id)
