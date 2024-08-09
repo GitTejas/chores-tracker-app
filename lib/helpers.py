@@ -283,7 +283,6 @@ def find_person_by_name():
         name = input("Enter the name of the person to find (must be greater than 1 character): ")
         
         if len(name) > 1:
-            # Call the class method to find the person by name
             found_person = Person.find_by_name(name)
             if found_person:
                 print("***********************")
