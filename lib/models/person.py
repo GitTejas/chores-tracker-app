@@ -109,13 +109,3 @@ class Person:
 
     def __str__(self):
         return f"{self.name} (Room: {self.room})"
-    
-
-    # def find_person_by_name(people):
-    #     name = input("Enter the name of the person to find: ")
-    #     found_people = [person for person in people if person.name.lower() == name.lower()]
-    #     if found_people:
-    #         for person in found_people:
-    #             print(person)
-    #     else:
-    #         print(f"No person found with the name '{name}'.")
