@@ -302,7 +302,6 @@ def find_chore_by_task():
         if len(task) > 1:
             found_chore = Chore.find_by_task(task)
             if found_chore:
-                # Assuming the Chore instance has a person_id attribute
                 person = Person.find_by_id(found_chore.person_id)
                 print("***********************")
                 print(f"Chore: {found_chore}")
