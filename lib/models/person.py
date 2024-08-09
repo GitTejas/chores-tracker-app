@@ -96,15 +96,3 @@ class Person:
         sql = "SELECT * FROM person WHERE id = ?"
         row = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_db(row) if row else None
-
-    # def add_chore(self, chore):
-    #     chore.person_id = self.id
-    #     self.chores.append(chore)
-    #     chore.save()
-
-    # def remove_chore(self, index):
-    #     if 0 <= index < len(self.chores):
-    #         self.chores.pop(index)
-
-    # def __str__(self):
-    #     return f"{self.name} (Room: {self.room})"
