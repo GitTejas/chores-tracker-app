@@ -1,4 +1,3 @@
-from seed import people
 from helpers import (
     list_people,
     add_person,
@@ -27,7 +26,7 @@ def main_page():
 
 def view_people():
     while True:
-        list_people(people)
+        list_people()
         print("*********************************************************************")
         print("*                        👪 MANAGE PEOPLE 👪                        *")
         print("*********************************************************************")
@@ -43,11 +42,11 @@ def view_people():
 
         choice = input("Enter your choice: ")
         if choice == '1':
-            add_person(people)
+            add_person()
         elif choice == '2':
-            delete_person(people)
+            delete_person()
         elif choice == '3':
-            update_person(people)
+            update_person()
         elif choice == '4':
             find_person_by_name()
         elif choice == '5':
@@ -75,13 +74,13 @@ def manage_chores():
 
         choice = input("Enter your choice: ")
         if choice == '1':
-            list_chores(people)
+            list_chores()
         elif choice == '2':
-            add_chore(people)
+            add_chore()
         elif choice == '3':
-            delete_chore(people)
+            delete_chore()
         elif choice == '4':
-            update_chore(people)
+            update_chore()
         elif choice == '5':
             find_chore_by_task()
         elif choice == '6':
