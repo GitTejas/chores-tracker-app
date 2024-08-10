@@ -9,17 +9,10 @@ def seed():
     Chore.create_table()
 
     # Create people and store their IDs
-    bella = Person.create(name="Bella", room="Kitchen")
-    # print(f"Created Bella with ID: {bella.id}")
-    
-    keiji = Person.create(name="Keiji", room="Living Room")
-    # print(f"Created Keiji with ID: {keiji.id}")
-    
+    bella = Person.create(name="Bella", room="Kitchen")    
+    keiji = Person.create(name="Keiji", room="Living Room")    
     serenity = Person.create(name="Serenity", room="Garden")
-    # print(f"Created Serenity with ID: {serenity.id}")
-    
     agheel = Person.create(name="Agheel", room="Garage")
-    # print(f"Created Agheel with ID: {agheel.id}")
 
     # Create chores and assign them to the appropriate person
     Chore.create(task="Clean the kitchen", status="Pending", priority="High", person_id=bella.id)
