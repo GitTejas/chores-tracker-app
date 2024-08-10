@@ -117,12 +117,10 @@ def update_person():
 
 def list_chores():
     all_people = Person.get_all()
-    all_chores = Chore.get_all()
-
     for person in all_people:
         print("---------------------------------------------------------------------")
         print(f"{person.name} (Room: {person.room})")
-        person_chores = [chore for chore in all_chores if chore.person_id == person.id]
+        person_chores = person.chore()
         for index, chore in enumerate(person_chores):
             print(f"  {index + 1}. Task: {chore.task} | Status: {chore.status} | Priority: {chore.priority}")
         print("---------------------------------------------------------------------")
@@ -199,7 +197,7 @@ def delete_chore():
             person_index = int(user_input) - 1
             if 0 <= person_index < len(all_people):
                 person = all_people[person_index]
-                person_chores = [chore for chore in Chore.get_all() if chore.person_id == person.id]
+                person_chores = person.chore()
                 
                 while True:
                     for index, chore in enumerate(person_chores):
@@ -240,7 +238,7 @@ def update_chore():
             person_index = int(person_input) - 1
             if 0 <= person_index < len(all_people):
                 person = all_people[person_index]
-                person_chores = [chore for chore in Chore.get_all() if chore.person_id == person.id]
+                person_chores = person.chore()
                 
                 while True:
                     for index, chore in enumerate(person_chores):
@@ -308,6 +306,7 @@ def update_chore():
                             print("Invalid selection. Please enter a valid number.")
                     except ValueError:
                         print("Invalid input. Please enter a number.")
+                return
             else:
                 print("Invalid selection. Please enter a valid number.")
         except ValueError:
