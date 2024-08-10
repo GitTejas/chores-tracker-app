@@ -1,3 +1,4 @@
+from seed import seed
 from helpers import (
     list_people,
     add_person,
