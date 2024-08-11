@@ -14,14 +14,14 @@ People Management
 - Add New Person: Add a new person to the household.
 - Delete a Person: Remove a person from the household.
 - Update a Person: Update the details of an existing person.
-- Find a Person by ID: Search for a person by their ID.
+- Find a Person by Name: Search for a person by their Name.
 
 Chores Management
 - View All Chores: Display a list of all chores.
 - Add New Chore: Add a new chore to the list.
 - Delete a Chore: Remove a chore from the list.
 - Update a Chore: Update the details of an existing chore.
-- Find a Chore by ID: Search for a chore by its ID.
+- Find a Chore by Task: Search for a chore by its Task.
 
 ## Application Example
 Example CLI navigation
